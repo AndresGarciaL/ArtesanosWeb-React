@@ -18,8 +18,8 @@ return(
 />
 {clicked && (
   <div className="dropdown-content">
-    <Link to="/iniciar-sesion">iniciar sesión</Link>
-    <Link to="/registrarse">registrarse</Link>
+    <Link to={'/Login/'}>iniciar sesión</Link>
+    <Link to={'/Register/'}>registrarse</Link>
   </div>
 )}
 </div>

@@ -14,7 +14,7 @@ function Header() {
     <header>
       <nav className="nav-container">
         <div className="logo-nav">
-          <Link to="/index.html">
+          <Link to="/">
             <img src={require("../images/Logo_blanco_artWeb.png")} alt="" />
           </Link>
         </div>
