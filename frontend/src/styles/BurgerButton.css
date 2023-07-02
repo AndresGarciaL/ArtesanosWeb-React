@@ -49,8 +49,8 @@
     top: 13px;
   }
 
-  .nav-icon-5{
     @media screen and (max-width: 950px){
-       display: block;
+      .nav-icon-5 {
+      display: block;
     }
   }
