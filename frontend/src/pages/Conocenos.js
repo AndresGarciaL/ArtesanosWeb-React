@@ -32,7 +32,7 @@ function Conocenos() {
                 donde todos ganemos. Queremos celebrar la artesanía, el uso de materiales sostenibles y elogiar la creatividad
                 de quienes promueven una economía circular</p>
 
-            <div className="imgs2">
+            <div className="imgs3">
                 <div className="artesanos">
                     <img className="fotos"
                         src={require("../images/img-contacto/hecho-a-mano.png")} />

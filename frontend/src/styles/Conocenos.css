@@ -59,9 +59,11 @@ p {
 }
 
 /* Imgs */
-.imgs2 {
+.imgs3 {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    margin: 5% 50%;
+    padding: 0 10px;
 }
 
 #venta {

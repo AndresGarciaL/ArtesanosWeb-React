@@ -12,8 +12,8 @@ function Footer() {
     //3. Metodo return HTML
     return (
         <>
-            <footer>
-                <p>Todos los derechos reservados &copy; | SM-33 | Andrés Garcia Leyva | Gael Aldair Marquez Peralta</p>
+            <footer className="footerF">
+                <p className="pFooter">Todos los derechos reservados &copy; | SM-33 | Andrés Garcia Leyva | Gael Aldair Marquez Peralta</p>
             </footer>
         </>
     );
