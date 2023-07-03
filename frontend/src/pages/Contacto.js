@@ -10,7 +10,7 @@ function Contacto() {
     return (
         <>
             <Header />
-            <div className="imgs">
+            <div className="imgs2">
                 <div className="artesanos">
                     <img className="fotos"
                         src={require("../images/img-contacto/pc-tienda.png")} />
