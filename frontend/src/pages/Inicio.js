@@ -20,7 +20,9 @@ function Inicio() {
           alt="..."
         />
       </div>
+      
     </div>
+    
     <button
       className="carousel-control-prev"
       type="button"

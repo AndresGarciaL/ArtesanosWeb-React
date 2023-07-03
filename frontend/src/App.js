@@ -8,6 +8,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Artesanos from './pages/Artesanos';
 import Conocenos from './pages/Conocenos';
 import Contacto from './pages/Contacto';
+import Tienda from './pages/Tienda';
+
 
 function App() {
   return (
@@ -20,8 +22,9 @@ function App() {
         <Route path="/Artesanos" element={<Artesanos />}></Route>
         <Route path="/Conocenos" element={<Conocenos />}></Route>
         <Route path="/Contacto" element={<Contacto />}></Route>
-      </Routes>
-    </BrowserRouter>
+        <Route path="/Tienda" element={<Tienda />}></Route>
+        </Routes>
+        </BrowserRouter>
    </>
   );
 }
