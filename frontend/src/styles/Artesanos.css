@@ -60,15 +60,6 @@ p {
     padding: 0 10%;
 }
 
-/* Estilos para footer */
-footer {
-    background-color: rgb(88, 88, 88);
-    color: white;
-    padding: 30px 0;
-    margin-top: 30px;
-    text-align: center;
-}
-
 /* Estilos responsivos */
 @media (max-width: 768px) {
     .imgs {

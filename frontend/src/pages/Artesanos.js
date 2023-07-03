@@ -1,6 +1,7 @@
 //1.
 import React from 'react';
 import Header from "../components/Header";
+import Footer from '../components/Footer';
 import "../styles/Artesanos.css";
 
 //2.
@@ -47,11 +48,7 @@ function Artesanos() {
                     <h3 className="preguntas">Josué Giménez</h3>
                 </div>
             </div>
-
-            <footer>
-                <p>Todos los derechos reservados &copy; | SM-33 | Andrés Garcia Leyva | Gael Aldair Marquez Peralta</p>
-            </footer>
-
+            <Footer />
         </>
     );
 }
