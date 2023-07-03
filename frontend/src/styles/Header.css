@@ -148,6 +148,7 @@ button:hover {
       }
 
   .ul-nav {
+    z-index: 2;
     margin-top: auto;
     display: flex;
     top: 75px;

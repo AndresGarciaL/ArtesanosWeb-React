@@ -48,8 +48,8 @@ h3 {
 }
 
 /* Estilos para titulo h2 */
-h2 {
-    color: rgba(77, 80, 77, 0.5) !important;
+.h2 {
+    color: rgba(77, 80, 77, 0.5);
     text-align: center;
     padding-top: 3%;
     padding-bottom: 1%;

@@ -4,7 +4,7 @@ import "../styles/Register.css";
 function Register(){
     return (
         <>
-       <section>
+       <section className="section">
   <div id="img">
 <a href="/">
 <img src={require("../images/logo-Artesanos-150px.png")} className="logo-form" />
@@ -13,7 +13,7 @@ function Register(){
   <div className="form-box">
     <div className="form-value">
       <form action="">
-        <h2 className="title">Registro</h2>
+        <h2 className="title-register">Registro</h2>
         <div className="inputbox">
         <img src={require("../images/icons/usuario.png")} className="img-form" />
           <input type="email" required="" />

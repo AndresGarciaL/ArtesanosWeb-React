@@ -10,7 +10,7 @@ function Artesanos() {
     return (
         <>
             <Header />
-            <h2>CONOZCA A NUESTROS SOCIOS ARTESANOS</h2>
+            <h2 className='h2'>CONOZCA A NUESTROS SOCIOS ARTESANOS</h2>
             <p>No somos solo una simple tienda online de productos de arte; somos un grupo de personas que trabajamos mano a
                 mano con artesanos para que podamos ayudarles a contar las historias de todas esas personas detrás de cada
                 producto hecho a mano.

@@ -4,7 +4,7 @@ import "../styles/Login.css";
 function Login(){
     return (
         <>
-       <section>
+       <section className="section">
   <div id="img">
 <a href="/">
 <img src={require("../images/logo-Artesanos-150px.png")} className="logo-form" />
@@ -13,7 +13,7 @@ function Login(){
   <div className="form-box">
     <div className="form-value">
       <form action="">
-      <h2 className="title">Login</h2>
+      <h2 className="title-login">Login</h2>
         <div className="inputbox">
         <img src={require("../images/icons/email.png")} className="img-form" />
           <input type="email" required="" />
