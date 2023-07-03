@@ -3,7 +3,7 @@ import React from 'react';
 import Header from "../components/Header";
 
 //2.
-function Inicio() {
+function Contacto() {
     //3.
     return (
         <>
@@ -16,4 +16,4 @@ function Inicio() {
 }
 
 //4.
-export default Inicio; 
+export default Contacto; 

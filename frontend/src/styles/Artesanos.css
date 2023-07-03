@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins', sans-serif;
+    font-size: small;
+
+}
+
+#hr {
+    margin: 2px;
+}
+
+/*Estilos para artesanos*/
+
+/* Estilos base */
+.imgs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-top: 60px;
+}
+
+.artesanos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10%;
+}
+
+.fotos {
+    height: 344px;
+    width: 344px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+h3 {
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* PREGUNTAS */
+.preguntas {
+    color: #82C294;
+    text-align: center !important;
+}
+
+/* Estilos para titulo h2 */
+h2 {
+    color: rgba(77, 80, 77, 0.5) !important;
+    text-align: center;
+    padding-top: 3%;
+    padding-bottom: 1%;
+}
+
+p {
+    text-align: center;
+    padding: 0 10%;
+}
+
+/* Estilos para footer */
+footer {
+    background-color: rgb(88, 88, 88);
+    color: white;
+    padding: 30px 0;
+    margin-top: 30px;
+    text-align: center;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .imgs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .fotos {
+        height: auto;
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .artesanos {
+        margin-bottom: 5%;
+    }
+
+    h2 {
+        padding-top: 2%;
+        padding-bottom: 0;
+    }
+}
+

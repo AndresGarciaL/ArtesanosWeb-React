@@ -21,21 +21,19 @@ function Header() {
         <ul className={`ul-nav ${clicked ? 'active' : ''}`}>
           <li>
             <Link className={clicked ? 'active' : ''} to="/">
-              Home
+              Inicio
             </Link>
           </li>
           <li>
-            <Link  to="/Tienda">
+            <Link to="/Tienda">
               Tienda
             </Link>
           </li>
           <li>
-            <Link  to="/Artesanos">
-              Artesanos
-            </Link>
+            <Link to="/Artesanos">Artesanos</Link>
           </li>
           <li>
-            <Link  to="/Conocenos">
+            <Link to="/Conocenos">
               Conócenos
             </Link>
           </li>
