@@ -99,7 +99,7 @@
     border-radius: 5px;
 }
 
-h2 {
+.tituloh2 {
     color: rgba(77, 80, 77, 0.5) !important;
     text-align: center;
 }
@@ -154,7 +154,7 @@ input[type=checkbox] {
     margin: 2%;
 }
 
-button {
+.botonEnviar {
     border: solid #82C294;
     width: 15%;
     height: 50px;

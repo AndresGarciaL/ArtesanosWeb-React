@@ -28,7 +28,7 @@ function Contacto() {
             </div>
 
             <div className="contactar">
-                <h2>¡Queremos saber de usted!</h2>
+                <h2 className="tituloh2">¡Queremos saber de usted!</h2>
                 <div className="formulario">
                     <form accion="#" method="#">
                         <label>Nombre</label>
@@ -47,7 +47,7 @@ function Contacto() {
             </div>
 
             <div id="boton">
-                <button>Enviar</button>
+                <button className="botonEnviar">Enviar</button>
             </div>
 
             <div className="detalles">
