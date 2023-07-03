@@ -1,0 +1,175 @@
+/* Estilos base */
+.imgs {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 60px;
+    padding: 0 5%;
+
+}
+
+.artesanos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10%;
+}
+
+#venta {
+    margin-left: 5%;
+    width: 314px;
+    height: 314px;
+}
+
+#servicio {
+    width: 296px;
+    height: 296px;
+}
+
+#cooperacion {
+    margin-right: 5%;
+    width: 297px;
+    height: 318px;
+}
+
+/* PREGUNTAS */
+.preguntas {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    color: #82C294;
+}
+
+#titulo1 {
+    margin-left: 5%;
+    width: 296px;
+    height: 94px;
+}
+
+#titulo2 {
+    width: 296px;
+    height: 94px;
+}
+
+#titulo3 {
+    margin-right: 5%;
+    width: 296px;
+    height: 94px;
+}
+
+/* Estilos responsivos */
+@media (max-width: 480px) {
+    .imgs {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    #venta,
+    #servicio,
+    #cooperacion {
+        width: 100%;
+        height: auto;
+        margin: 0;
+    }
+
+    .preguntas {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    #titulo1,
+    #titulo2,
+    #titulo3 {
+        width: 100%;
+        height: auto;
+        margin: 0;
+    }
+}
+
+
+.contactar {
+    margin-left: 2%;
+    margin-right: 2%;
+    padding: 2%;
+    background-color: #82C294;
+    border-radius: 5px;
+}
+
+h2 {
+    color: rgba(77, 80, 77, 0.5) !important;
+    text-align: center;
+}
+
+.formulario {
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+input {
+    display: flex;
+    border: #82C294;
+    width: 100%;
+    padding: 2%;
+    border-radius: 5px;
+    margin-bottom: 2% !important;
+}
+
+input:focus {
+    outline: none;
+}
+
+textarea {
+    display: flex;
+    border: #82C294;
+    width: 100%;
+    padding: 2%;
+    border-radius: 5px;
+    margin-bottom: 2% !important;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.terminos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type=checkbox] {
+    margin: 2%;
+    width: 40px;
+    height: 40px;
+}
+
+/* Estilos para Boton */
+#boton {
+    display: flex;
+    justify-content: center;
+    margin: 2%;
+}
+
+button {
+    border: solid #82C294;
+    width: 15%;
+    height: 50px;
+    background-color: white;
+}
+
+/* Estilos para Detalles */
+.detalles {
+    margin: 6%;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+#correo {
+    display: flex;
+    justify-content: center;
+}
+
+b {
+    color: #82C294;
+}
