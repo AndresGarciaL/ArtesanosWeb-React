@@ -17,7 +17,7 @@
 
 /* Estilos base */
 .imgs {
-    display: grid;
+    display: grid !important;
     grid-template-columns: repeat(2, 1fr);
     margin-top: 60px;
 }
