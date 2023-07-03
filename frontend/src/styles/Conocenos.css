@@ -1,0 +1,146 @@
+/* Estilos base */
+h3 {
+    text-align: center;
+}
+
+.tituloh2 {
+    color: rgba(77, 80, 77, 0.5) !important;
+    text-align: center;
+    padding-top: 3%;
+    padding-bottom: 1%;
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0% !important;
+}
+
+.parrafos {
+    display: block;
+    text-align: justify;
+    margin-right: 20%;
+    margin-left: 3%;
+}
+
+.parrafo1 {
+    margin-top: 5% !important;
+    margin-bottom: 7% !important;
+}
+
+#parrafo4 {
+    margin-top: 2% !important;
+}
+
+#img-conocenos {
+    width: 15;
+    max-height: 400px !important;
+    margin-left: 20%;
+    border-radius: 5%;
+}
+
+.parrafo4 {
+    text-align: center;
+    margin-top: 2%;
+    padding-right: 7%;
+    padding-left: 7%;
+    
+}
+
+p {
+    text-align: justify;
+    width: 100%;
+}
+
+/* Estilos para introduccion */
+.introduccion {
+    margin-top: 70px;
+    margin-bottom: 40px;
+}
+
+/* Imgs */
+.imgs2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+#venta {
+    margin-left: 5%;
+    width: 314px;
+    height: 314px;
+}
+
+#servicio {
+    width: 296px;
+    height: 296px;
+}
+
+#cooperacion {
+    margin-right: 5%;
+    width: 297px;
+    height: 318px;
+}
+
+/* PREGUNTAS */
+.preguntas {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    color: #82C294;
+}
+
+#titulo1 {
+    margin-left: 6%;
+    width: 296px;
+    height: 94px;
+}
+
+#titulo2 {
+    width: 296px;
+    height: 94px;
+}
+
+#titulo3 {
+    margin-right: 5%;
+    width: 296px;
+    height: 94px;
+}
+
+/* Estilo para Objetivos imgs */
+#ODS {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .parrafos {
+        margin-right: 10%;
+        margin-left: 10%;
+    }
+
+   
+
+    #titulo1,
+    #titulo2,
+    #titulo3 {
+        margin-left: 10%;
+        margin-right: 10%;
+        width: auto;
+        height: auto;
+    }
+
+   
+
+    .preguntas {
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}
