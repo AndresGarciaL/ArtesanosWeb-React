@@ -30,16 +30,16 @@ function Contacto() {
             <div className="contactar">
                 <h2 className="tituloh2">¡Queremos saber de usted!</h2>
                 <div className="formulario">
-                    <form accion="#" method="#">
-                        <label>Nombre</label>
-                        <input type="text" name="nombre-completo" value="" placeholder="Ingresa tu nombre" />
-                        <label>Correo electrónico</label>
-                        <input type="email" name="correo-electronico" value="" placeholder="Ingresa tu e-mail" />
-                        <label>Mensaje</label>
+                    <form className="formContacto" accion="#" method="#">
+                        <label className="labelContacto">Nombre</label>
+                        <input className="inputContacto" type="text" name="nombre-completo" value="" placeholder="Ingresa tu nombre" />
+                        <label className="labelContacto">Correo electrónico</label>
+                        <input className="inputContacto" type="email" name="correo-electronico" value="" placeholder="Ingresa tu e-mail" />
+                        <label className="labelContacto">Mensaje</label>
                         <textarea name="mensaje" cols="30" rows="10"></textarea>
                         <div className="terminos">
                             <label>Acepto los términos y condiciones</label>
-                            <input type="checkbox" name="checkbox" value="" required />
+                            <input className="inputCheck" type="checkbox" name="checkbox" value="" required />
                         </div>
                     </form>
 
