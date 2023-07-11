@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Inicio from './pages/Inicio'
 import Login from './pages/Login'
@@ -8,7 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Artesanos from './pages/Artesanos';
 import Conocenos from './pages/Conocenos';
 import Contacto from './pages/Contacto';
+import Shop from './pages/Shop';
 import Tienda from './pages/Tienda';
+import Categorias from './pages/Categorias';
 
 
 function App() {
@@ -22,7 +23,9 @@ function App() {
         <Route path="/Artesanos" element={<Artesanos />}></Route>
         <Route path="/Conocenos" element={<Conocenos />}></Route>
         <Route path="/Contacto" element={<Contacto />}></Route>
+        <Route path="/Shop" element={<Shop/>}></Route>
         <Route path="/Tienda" element={<Tienda />}></Route>
+        <Route path="/categorias/:id" element={<Categorias />}></Route>
         </Routes>
         </BrowserRouter>
    </>

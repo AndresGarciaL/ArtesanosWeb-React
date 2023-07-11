@@ -2,6 +2,7 @@
 import React from 'react';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Breadcrumb from "../components/Breadcrumb";
 import "../styles/Contacto.css";
 
 //2.
@@ -10,6 +11,7 @@ function Contacto() {
     return (
         <>
             <Header />
+            <Breadcrumb currentPage="Contacto" />
             <div className="imgs2">
                 <div className="artesanos">
                     <img className="fotos"

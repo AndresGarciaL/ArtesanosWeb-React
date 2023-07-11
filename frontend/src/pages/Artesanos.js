@@ -10,6 +10,27 @@ function Artesanos() {
     return (
         <>
             <Header />
+            <nav
+        style={{
+          background: "lightgray",
+          "--bs-breadcrumb-divider":
+            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E\")",
+        }}
+        aria-label="breadcrumb"
+      >
+        <ol className="breadcrumb">
+          <li className="breadcrumb-item">
+            <a href="/">Home</a>
+          </li>
+          <li
+            className="breadcrumb-item active"
+            style={{ fontSize: "medium" }}
+            aria-current="page"
+          >
+            Artesanos
+          </li>
+        </ol>
+      </nav>
             <h2 className='h2'>CONOZCA A NUESTROS SOCIOS ARTESANOS</h2>
             <p>No somos solo una simple tienda online de productos de arte; somos un grupo de personas que trabajamos mano a
                 mano con artesanos para que podamos ayudarles a contar las historias de todas esas personas detrás de cada

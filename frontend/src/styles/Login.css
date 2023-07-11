@@ -15,7 +15,7 @@ h2{
     color: white;
 }
 
-.section{
+.section-login{
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -39,10 +39,10 @@ h2{
 .img-form{
     width: 30px;
 }
-.form-box{
+.form-box-login{
     position: relative;
     width: 400px;
-    height: 450px;
+    height: 400px;
     background: transparent;
     border: 2px solid rgba(255,255,255,0.5);
     border-radius: 20px;

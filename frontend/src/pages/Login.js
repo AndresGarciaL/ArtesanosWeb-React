@@ -1,16 +1,18 @@
 import React from "react";
 import "../styles/Login.css";
+import { Link } from "react-router-dom";
+
 
 function Login(){
     return (
         <>
-       <section className="section">
+       <section className="section-login">
   <div id="img">
 <a href="/">
 <img src={require("../images/logo-Artesanos-150px.png")} className="logo-form" />
 </a>
   </div>
-  <div className="form-box">
+  <div className="form-box-login">
     <div className="form-value">
       <form action="">
       <h2 className="title-login">Login</h2>
@@ -26,14 +28,14 @@ function Login(){
         </div>
         <div className="forget">
           <label htmlFor="">
-            <input type="checkbox" />
-            Recordarme <a href="#">¿Olvidaste tu contraseña?</a>
+          <a href="#">¿Olvidaste tu contraseña?</a>
           </label>
         </div>
         <button className="button-inicio-sesion">Iniciar Sesion</button>
         <div className="register">
           <p>
-            No tengo una cuenta <a href="/register.html"> Registrarme</a>
+            No tengo una cuenta <Link to={'/Register/'}>Registrarme</Link>
+            
           </p>
         </div>
       </form>

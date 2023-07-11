@@ -2,6 +2,7 @@
 import React from 'react';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Breadcrumb from "../components/Breadcrumb";
 import "../styles/Conocenos.css";
 
 //2.
@@ -10,6 +11,7 @@ function Conocenos() {
     return (
         <>
             <Header />
+            <Breadcrumb currentPage="Conocenos" />
             <h2 className="tituloh2">¿Quiénes somos?</h2>
             <div class="left">
                 <img id="img-conocenos" src={require("../images/img-contacto/conocenos.png")} alt="Imagen Conócenos" />
