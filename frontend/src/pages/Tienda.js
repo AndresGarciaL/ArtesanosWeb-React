@@ -1,28 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect,useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Breadcrumb from "../components/Breadcrumb";
 import axios from "axios";
+import Producto from "../components/Producto";
+import { CarritoContext } from "./CarritoContext";
 import "../styles/Tienda.css";
 
-
 function Tienda() {
-  const [productos, setProductos] = useState([]);
+  const { productos, agregarAlCarrito } = useContext(CarritoContext);
   const [categorias, setCategorias] = useState([]);
-
+  const [carrito, setCarrito] = useState([]);
 
   useEffect(() => {
-    // Obtener productos de la base de datos
-    axios
-      .get("http://localhost:8081/productos")
-      .then((response) => {
-        setProductos(response.data);
-      })
-      .catch((error) => {
-        console.error("Error al obtener los productos:", error);
-      });
-
     // Obtener categorías de la base de datos
     axios
       .get("http://localhost:8081/categorias")
@@ -32,7 +23,18 @@ function Tienda() {
       .catch((error) => {
         console.error("Error al obtener las categorías:", error);
       });
+
+    // Obtener carrito del almacenamiento local
+    const carritoGuardado = localStorage.getItem("carrito");
+    if (carritoGuardado) {
+      setCarrito(JSON.parse(carritoGuardado));
+    }
   }, []);
+
+  useEffect(() => {
+    // Guardar carrito en el almacenamiento local
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+  }, [carrito]);
 
   return (
     <>
@@ -41,37 +43,33 @@ function Tienda() {
 
       <div className="container-main">
         <aside className="aside">
-          <div className="title">
+          <div className="title-aside">
             <h2>Categorías</h2>
           </div>
           <div className="cat-producto">
             {categorias.map((categoria) => (
-              <Link to={'/categorias/' + categoria.id} key={categoria.id}>{categoria.nombre}</Link>
+              <Link to={"/categorias/" + categoria.id} key={categoria.id}>
+                {categoria.nombre}
+              </Link>
             ))}
           </div>
+
           {/* Resto del código del aside */}
         </aside>
-        <div className="title-aside">
+        <div className="separator">
           <h1></h1>
         </div>
         <section className="products">
-          <div className="title">
+          <div className="title-tienda">
             <h1>Productos</h1>
           </div>
-          {productos.map((producto) => {
-            return (
-              <div className="product" key={producto.id}>
-                <a href="">
-                  <img className="img" src={require(`../images/Productos/${producto.image}`)} alt="" />
-                </a>
-                <h3>{producto.nombre}</h3>
-                <h4>$ {producto.precio.toFixed(2)}</h4>
-                <button className="agregar-al-carrito">
-                  Agregar al carrito
-                </button>
-              </div>
-            );
-          })}
+          {productos.map((producto) => (
+            <Producto
+              key={producto.id}
+              producto={producto}
+              agregarAlCarrito={agregarAlCarrito}
+            />
+          ))}
         </section>
       </div>
       <Footer />

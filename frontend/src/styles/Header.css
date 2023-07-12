@@ -1,19 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+
 * {
   text-decoration: none;
   margin: 0;
   padding: 0;
-  font-family: "poppins", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: medium;
 }
-.logo-nav{
-    justify-self: center;
+
+.logo-nav {
+  justify-self: center;
 }
+
 .logo-nav img {
   width: 100px;
   justify-self: center;
   cursor: pointer;
 }
+
 button:hover {
   background-color: #82c294;
 }
@@ -110,42 +114,40 @@ button:hover {
   justify-items: center;
   margin: 10px;
 }
+
 .container-icons img:hover {
   transition: filter 0.2s;
-  filter: brightness(0) invert(1); /* Aplica un filtro para cambiar el color a blanco */
+  filter: brightness(0) invert(1);
 }
 
-
-
 @media screen and (max-width: 950px) {
-  
-    .logo-nav img {
-        width: 100px;
-        justify-self: center;
-        cursor: pointer;
-      }
+  .logo-nav img {
+    width: 100px;
+    justify-self: center;
+    cursor: pointer;
+  }
 
-      .container-icons {
-        display: grid;
-        grid-template-columns: repeat(4, auto);
-        grid-gap: 10px;
-        margin: 10px;
-        justify-items: center;
-        align-items: center;
-    }
+  .container-icons {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 10px;
+    margin: 10px;
+    justify-items: center;
+    align-items: center;
+  }
 
-    .nav-container {
-        margin-bottom: 0;
-        background-color: #82c294;
-        display: grid;
-        grid-template-columns: repeat(2, auto);
-        grid-gap: 10px;
-        align-items: center;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-weight: 700;
-        list-style: none;
-      }
+  .nav-container {
+    margin-bottom: 0;
+    background-color: #82c294;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 10px;
+    align-items: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    list-style: none;
+  }
 
   .ul-nav {
     z-index: 2;
@@ -159,19 +161,34 @@ button:hover {
     flex-direction: column;
     align-items: flex-start;
     position: fixed;
-    box-shadow: 0 40px 60px rgba(0, 0,0,0.1);
+    box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
     padding: 30px;
     transition: right 0.5s ease;
   }
 
-  .ul-nav li{
+  .ul-nav li {
     margin: 5px;
     transition: right 0.5s ease;
   }
 
-  .ul-nav.active{
+  .ul-nav.active {
     right: 0px;
   }
 }
-
-
+.carrito-icon{
+  display: flex;
+}
+/* Estilo para carrito-count */
+.carrito-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 5px;
+  width: 30px;
+  height: 30px;
+  background-color: #fafafa;
+  color: rgb(0, 0, 0);
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 50%;
+}

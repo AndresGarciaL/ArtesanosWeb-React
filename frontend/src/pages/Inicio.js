@@ -3,6 +3,7 @@ import React from 'react';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import "../styles/Inicio.css";
+import { Link } from "react-router-dom";
 
 //2.
 function Inicio() {
@@ -67,37 +68,37 @@ function Inicio() {
   <hr />
   <div className="categorias">
     <div className="one">
-      <a href="#">
+      <Link to="/categorias/1">
         <img src={require("../images/Categorias/Decoracion-del-hogar.webp")}  alt="" />
         <div className="overlay">
           <h3>HOGAR</h3>
         </div>
-      </a>
+      </Link>
     </div>
     <div className="two">
-      <a href="#">
+      <Link to="/categorias/2">
         <img src={require("../images/Categorias/Moda-sostenible.webp")} alt="" />
         <div className="overlay-two">
           <h3>ROPA</h3>
         </div>
-      </a>
+      </Link>
     </div>
     <div className="three">
       <div className="three-one">
-        <a href="#">
+        <Link to="/categorias/3">
           <img src={require("../images/Categorias/Joyeria-artesanal.webp")} alt="" />
           <div className="overlay-three">
             <h3>JOYERIA</h3>
           </div>
-        </a>
+        </Link>
       </div>
       <div className="three-two">
-        <a href="#">
+        <Link to="/categorias/4">
           <img src={require("../images/Categorias/textiles_grande.webp")} alt="" />
           <div className="overlay-three">
             <h3>ACCESORIOS</h3>
           </div>
-        </a>
+        </Link>
       </div>
     </div>
   </div>

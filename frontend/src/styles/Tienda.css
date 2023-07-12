@@ -11,10 +11,9 @@
 #hr {
   margin: 2px;
 }
-.title{
+.title-tienda{
     background-color: #82C294;
     color: aliceblue;
-    margin-top: 20px;
     padding: 5px;
     display: flex;
     justify-content: center;
@@ -26,18 +25,30 @@
   }
 
 .title-aside {
+  margin-top: 20px;
   background-color: #82C294;
   color: aliceblue;
-  margin-top: 20px;
   padding: 5px;
   display: flex;
   justify-content: center;
   font-family: 'Poppins', sans-serif !important;
-  grid-column: 1 / -1;
   text-align: center;
   font-size: 24px;
   margin-bottom: 20px;
 }
+.separator {
+  margin: 20px 0 20px 20px;
+  background-color: #82C294;
+  color: aliceblue;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif !important;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
 
 .breadcrumb-item a {
   font-size: medium;
