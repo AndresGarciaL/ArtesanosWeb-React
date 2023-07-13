@@ -124,7 +124,7 @@ app.post('/acceso', (req, res) => {
           if (coincide) {
             const token = jwt.sign({ usuario: 'administrador' }, 'juan', { expiresIn: '1d' });
             res.cookie('token', token);
-            res.json({ Estatus: "CORRECTO", Usuario: token });
+            res.json({ Estatus: "CORRECTO", Usuario: token });           
           } else {
             res.json({ Estatus: "ERROR", Error: "Usuario o contraseña incorrecta" });
           }
