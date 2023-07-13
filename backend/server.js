@@ -1,6 +1,8 @@
 import express from 'express';
 import mysql from 'mysql';
 import cors from 'cors';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
 const app = express();
 app.use(express.json());
@@ -84,6 +86,58 @@ app.post('/productos', (req, res) => {
   });
 });
 
+//Register
+app.post('/registrar', (req, res) => {
+  const { nombre, email, contrasena } = req.body;
+
+  // Generar el hash de la contraseña
+  bcrypt.hash(contrasena, 10, (error, hash) => {
+    if (error) {
+      console.log("Error al generar el hash de la contraseña", error);
+      res.status(500).json({ Estatus: "ERROR", Error: "Error al registrar usuario" });
+    } else {
+      const sql = "INSERT INTO usuarios (nombre, email, contrasena) VALUES (?, ?, ?)";
+      connection.query(sql, [nombre, email, hash], (error, resultado) => {
+        if (error) {
+          console.log("Error al registrar usuario", error);
+          res.status(500).json({ Estatus: "ERROR", Error: "Error al registrar usuario" });
+        } else {
+          res.json({ Estatus: "CORRECTO" });
+        }
+      });
+    }
+  });
+});
+
+//Login
+app.post('/acceso', (req, res) => {
+  const { email, contrasena } = req.body;
+  const sql = "SELECT * FROM usuarios WHERE email = ?";
+  connection.query(sql, [email], (error, resultado) => {
+    if (error) {
+      console.log("Error al realizar inicio de sesión", error);
+      res.status(500).json({ Estatus: "ERROR", Error: "Error al realizar inicio de sesión" });
+    } else {
+      if (resultado.length > 0) {
+        // Verificar la contraseña con bcrypt
+        bcrypt.compare(contrasena, resultado[0].contrasena, (error, coincide) => {
+          if (coincide) {
+            const token = jwt.sign({ usuario: 'administrador' }, 'juan', { expiresIn: '1d' });
+            res.cookie('token', token);
+            res.json({ Estatus: "CORRECTO", Usuario: token });
+          } else {
+            res.json({ Estatus: "ERROR", Error: "Usuario o contraseña incorrecta" });
+          }
+        });
+      } else {
+        res.json({ Estatus: "ERROR", Error: "Usuario o contraseña incorrecta" });
+      }
+    }
+  });
+});
+
+
+//Iniciar server
 const PORT = 8081;
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en el puerto ${PORT}`);

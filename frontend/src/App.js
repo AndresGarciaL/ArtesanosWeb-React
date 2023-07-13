@@ -12,6 +12,7 @@ import Shop from "./pages/Shop";
 import Tienda from "./pages/Tienda";
 import Categorias from "./pages/Categorias";
 import Carrito from "./pages/Carrito";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Inicio />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
+          <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Artesanos" element={<Artesanos />} />
           <Route path="/Conocenos" element={<Conocenos />} />
           <Route path="/Contacto" element={<Contacto />} />
