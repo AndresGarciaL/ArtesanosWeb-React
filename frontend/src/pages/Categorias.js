@@ -38,7 +38,7 @@ function Categorias() {
   return (
     <>
       <Header />
-      <Breadcrumb currentPage="Shop" />
+      <Breadcrumb currentPage="Categorias" />
 
       <div className="container-main">
         <aside className="aside">

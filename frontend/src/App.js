@@ -12,7 +12,10 @@ import Shop from "./pages/Shop";
 import Tienda from "./pages/Tienda";
 import Categorias from "./pages/Categorias";
 import Carrito from "./pages/Carrito";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./dashboard/Dashboard";
+import Categorias_Dash from "./dashboard/Categorias_Dash";
+import Agregar_Categoria from "./dashboard/Agregar_Categoria";
+import Productos_Dash from "./dashboard/Productos_Dash";
 
 function App() {
   return (
@@ -30,6 +33,10 @@ function App() {
           <Route path="/Tienda" element={<Tienda />} />
           <Route path="/categorias/:id" element={<Categorias />} />
           <Route path="/Carrito" element={<Carrito />} />
+          <Route path="/Dashboard/Categorias" element={<Categorias_Dash />} />
+          <Route path="/Dashboard/AgregarCategoria" element={<Agregar_Categoria />} />
+          <Route path="/Dashboard/Productos" element={<Productos_Dash />} />
+
         </Routes>
       </Router>
     </CarritoProvider>

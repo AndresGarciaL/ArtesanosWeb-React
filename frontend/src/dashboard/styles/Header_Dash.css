@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+
+* {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: medium;
+}
+
+.logo-nav-dash {
+  justify-self: center;
+}
+
+.logo-nav-dash img {
+  margin: 5px;
+  margin-left: 65px;
+  width: 100px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #82c294;
+}
+
+.nav-container-dash {
+  margin-bottom: 0;
+  background-color: #82c294;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  text-transform: uppercase;
+  list-style: none;
+  justify-items: start;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+
+.container-icons {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  grid-gap: 10px;
+  justify-items: center;
+  margin: 10px;
+}
+
+.container-icons img:hover {
+  transition: filter 0.2s;
+  filter: brightness(0) invert(1);
+}
+
+@media screen and (max-width: 768px) {
+  .logo-nav-dash img {
+    margin-left: 20px;
+    width: 100px;
+    justify-self: center;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .logo-nav-dash img {
+    width: 100px;
+    justify-self: center;
+    cursor: pointer;
+  }
+
+  .container-icons {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-gap: 10px;
+    margin: 10px;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .nav-container-dash {
+    margin-bottom: 0;
+    background-color: #82c294;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    grid-gap: 10px;
+    align-items: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 700;
+    list-style: none;
+  }
+
+}

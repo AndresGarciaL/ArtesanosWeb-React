@@ -39,7 +39,7 @@ function Tienda() {
   return (
     <>
       <Header />
-      <Breadcrumb currentPage="Shop" />
+      <Breadcrumb currentPage="Tienda" />
 
       <div className="container-main">
         <aside className="aside">

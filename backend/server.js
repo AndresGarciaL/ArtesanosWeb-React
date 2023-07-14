@@ -69,6 +69,23 @@ app.get('/categorias/:id', (req, res) => {
   });
 });
 
+// Ruta para añadir una nueva categoría
+app.post('/addcategorias', (req, res) => {
+  const { nombre } = req.body;
+  const query = `INSERT INTO categorias (nombre) VALUES (?)`;
+  const values = [nombre];
+
+  connection.query(query, values, (err, results) => {
+    if (err) {
+      console.error('Error al añadir la categoría:', err);
+      res.status(500).json({ error: 'Error al añadir la categoría' });
+      return;
+    }
+
+    res.json({ message: 'Categoría añadida correctamente' });
+  });
+});
+
 // Ruta para añadir un nuevo producto
 app.post('/productos', (req, res) => {
   const { nombre, descripcion, precio, stock, categoria_id, imagen } = req.body;
@@ -85,6 +102,40 @@ app.post('/productos', (req, res) => {
     res.json({ message: 'Producto añadido correctamente' });
   });
 });
+ //RUTA PARA ELIMINAR UNA CATEGORIA 
+app.delete('/delcategoria/:id', (req, res) => {
+  const id = req.params.id;
+  const query = `DELETE FROM categorias WHERE id = ?`;
+
+  connection.query(query, [id], (err, results) => {
+    if (err) {
+      console.error('Error al eliminar la categoría:', err);
+      res.status(500).json({ error: 'Error al eliminar la categoría' });
+      return;
+    }
+
+    res.json({ message: 'Categoría eliminada correctamente' });
+  });
+});
+
+// Ruta para modificar el nombre de una categoría
+app.put('/editcategoria/:id', (req, res) => {
+  const id = req.params.id;
+  const { nombre } = req.body;
+  const query = `UPDATE categorias SET nombre = ? WHERE id = ?`;
+  const values = [nombre, id];
+
+  connection.query(query, values, (err, results) => {
+    if (err) {
+      console.error('Error al modificar el nombre de la categoría:', err);
+      res.status(500).json({ error: 'Error al modificar el nombre de la categoría' });
+      return;
+    }
+
+    res.json({ message: 'Nombre de la categoría modificado correctamente' });
+  });
+});
+
 
 //Register
 app.post('/registrar', (req, res) => {
