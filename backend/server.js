@@ -87,10 +87,10 @@ app.post('/addcategorias', (req, res) => {
 });
 
 // Ruta para añadir un nuevo producto
-app.post('/productos', (req, res) => {
-  const { nombre, descripcion, precio, stock, categoria_id, imagen } = req.body;
-  const query = `INSERT INTO productos (nombre, descripcion, precio, stock, categoria_id, imagen) VALUES (?, ?, ?, ?, ?, ?)`;
-  const values = [nombre, descripcion, precio, stock, categoria_id, imagen];
+app.post('/addproducto', (req, res) => {
+  const { nombre, descripcion, precio, stock, categoria, image } = req.body;
+  const query = `INSERT INTO productos (nombre, descripcion, precio, stock, categoria_id, image) VALUES (?, ?, ?, ?, ?, ?)`;
+  const values = [nombre, descripcion, precio, stock, categoria, image];
 
   connection.query(query, values, (err, results) => {
     if (err) {
@@ -102,6 +102,42 @@ app.post('/productos', (req, res) => {
     res.json({ message: 'Producto añadido correctamente' });
   });
 });
+
+//RUTA PARA ELIMINAR UN PRODUCTO
+app.delete('/delproductos/:id', (req, res) => {
+  const id = req.params.id;
+  const query = `DELETE FROM productos WHERE id = ?`;
+
+  connection.query(query, [id], (err, results) => {
+    if (err) {
+      console.error('Error al eliminar el producto:', err);
+      res.status(500).json({ error: 'Error al eliminar el producto' });
+      return;
+    }
+
+    res.json({ message: 'Producto eliminado correctamente' });
+  });
+});
+
+// Ruta para modificar un producto
+app.put('/editproductos/:id', (req, res) => {
+  const id = req.params.id;
+  const { nombre, precio } = req.body;
+  const query = `UPDATE productos SET nombre = ?, precio = ? WHERE id = ?`;
+  const values = [nombre, precio, id];
+
+  connection.query(query, values, (err, results) => {
+    if (err) {
+      console.error('Error al modificar el producto:', err);
+      res.status(500).json({ error: 'Error al modificar el producto' });
+      return;
+    }
+
+    res.json({ message: 'Producto modificado correctamente' });
+  });
+});
+
+
  //RUTA PARA ELIMINAR UNA CATEGORIA 
 app.delete('/delcategoria/:id', (req, res) => {
   const id = req.params.id;

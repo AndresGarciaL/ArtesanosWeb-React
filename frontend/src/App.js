@@ -16,6 +16,7 @@ import Dashboard from "./dashboard/Dashboard";
 import Categorias_Dash from "./dashboard/Categorias_Dash";
 import Agregar_Categoria from "./dashboard/Agregar_Categoria";
 import Productos_Dash from "./dashboard/Productos_Dash";
+import Agregar_Producto from "./dashboard/Agregar_Producto";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/Dashboard/Categorias" element={<Categorias_Dash />} />
           <Route path="/Dashboard/AgregarCategoria" element={<Agregar_Categoria />} />
           <Route path="/Dashboard/Productos" element={<Productos_Dash />} />
+          <Route path="/Dashboard/AgregarProducto" element={<Agregar_Producto />} />
 
         </Routes>
       </Router>
