@@ -3,6 +3,7 @@ import mysql from 'mysql';
 import cors from 'cors';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import sgMail from '@sendgrid/mail';
 
 const app = express();
 app.use(express.json());
@@ -21,6 +22,38 @@ connection.connect((error) => {
   } else {
     console.log('Conexión con el servidor exitosa');
   }
+});
+
+// Configurar SendGrid
+sgMail.setApiKey('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');
+
+app.post('/enviarform', (req, res) => {
+  const { nombre, email, mensaje } = req.body;
+
+  const msgToAdmin = {
+    to: 'artesanosweb@monstering.net',
+    from: email,
+    subject: 'Nuevo formulario de contacto',
+    text: `Nombre: ${nombre}\nEmail: ${email}\nMensaje: ${mensaje}`,
+  };
+
+  const msgToUser = {
+    to: email,
+    from: 'artesanosweb@monstering.net',
+    subject: 'Formulario de contacto enviado',
+    text: 'Gracias por contactarnos. Hemos recibido tu formulario de contacto.',
+  };
+
+  sgMail
+    .send(msgToAdmin)
+    .then(() => {
+      sgMail.send(msgToUser);
+      res.json({ message: 'Formulario enviado correctamente' });
+    })
+    .catch((error) => {
+      console.error('Error al enviar el formulario:', error);
+      res.status(500).json({ error: 'Error al enviar el formulario' });
+    });
 });
 
 // Ruta para obtener todos los productos

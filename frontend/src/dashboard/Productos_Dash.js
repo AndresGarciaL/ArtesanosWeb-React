@@ -28,7 +28,7 @@ function Productos_Dash() {
 
   const handleEliminarProducto = (id) => {
     axios
-      .delete(`http://localhost:8081/productos/${id}`)
+      .delete(`http://localhost:8081/delproductos/${id}`)
       .then((response) => {
         console.log("Producto eliminado correctamente");
         // Actualizar la lista de productos después de eliminar
@@ -49,7 +49,7 @@ function Productos_Dash() {
 
   const handleGuardarCambios = () => {
     axios
-      .put(`http://localhost:8081/productos/${editingProducto.id}`, editedProducto)
+      .put(`http://localhost:8081/editproductos/${editingProducto.id}`, editedProducto)
       .then((response) => {
         console.log("Producto editado correctamente");
         // Actualizar la lista de productos después de editar
