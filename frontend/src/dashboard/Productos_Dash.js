@@ -5,8 +5,26 @@ import Header_Dash from "./Header_Dash";
 import Footer from "../components/Footer";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import swal from "sweetalert";
 
 function Productos_Dash() {
+  const mostrarAlertaDel = (id) => {
+    swal({
+      title: "¿Estás seguro que deseas eliminar?",
+      text: "Esta acción es irreversible",
+      icon: "warning",
+      buttons: ["Cancelar", "Aceptar"],
+      dangerMode: true,
+    }).then((confirm) => {
+      if (confirm) {
+        swal("¡Confirmado!", "El Producto se eliminó con éxito", "success");
+        handleEliminarProducto(id);
+      } else {
+        swal("Cancelado", "La acción fue cancelada", "error");
+      }
+    });
+  };
+
   const [productos, setProductos] = useState([]);
   const [editingProducto, setEditingProducto] = useState(null);
   const [editedProducto, setEditedProducto] = useState({
@@ -163,7 +181,7 @@ function Productos_Dash() {
                       className="img-del2"
                       src={require(`./icons/eliminar.png`)}
                       alt=""
-                      onClick={() => handleEliminarProducto(producto.id)}
+                     onClick={() => mostrarAlertaDel(producto.id)}
                     />
                   </div>
                 </div>

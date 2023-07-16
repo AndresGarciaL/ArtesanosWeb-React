@@ -156,17 +156,28 @@ input[type=checkbox] {
 }
 
 /* Estilos para Boton */
-#boton {
+.submit-btn{
     display: flex;
     justify-content: center;
     margin: 2%;
 }
+input[type=submit] {
+  display: flex;
+  align-items: center;
+}
+
 
 .botonEnviar {
-    border: solid #82C294;
+    justify-content: center;
     width: 15%;
     height: 50px;
     background-color: white;
+}
+.botonEnviar:hover {
+    justify-content: center;
+    width: 15%;
+    height: 50px;
+    background-color: rgba(209, 250, 238, 0.685);
 }
 
 /* Estilos para Detalles */

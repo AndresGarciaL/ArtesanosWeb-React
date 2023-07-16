@@ -6,8 +6,26 @@ import { useParams } from "react-router-dom";
 import SideBar_Dash from "./SideBar_Dash";
 import Header_Dash from "./Header_Dash";
 import Footer from "../components/Footer";
+import swal from "sweetalert";
 
 function Categorias_Dash() {
+  const mostrarAlertaDel = (id) => {
+    swal({
+      title: "¿Estás seguro que deseas eliminar?",
+      text: "Esta acción es irreversible",
+      icon: "warning",
+      buttons: ["Cancelar", "Aceptar"],
+      dangerMode: true,
+    }).then((confirm) => {
+      if (confirm) {
+        swal("¡Confirmado!", "Se eliminó con éxito", "success");
+        handleDelete(id);
+      } else {
+        swal("Cancelado", "La acción fue cancelada", "error");
+      }
+    });
+  };
+
   const { id } = useParams();
   const [categorias, setCategorias] = useState([]);
   const [editingCategoryId, setEditingCategoryId] = useState(null);
@@ -136,7 +154,7 @@ function Categorias_Dash() {
                           className="img-del"
                           src={require(`./icons/eliminar.png`)}
                           alt=""
-                          onClick={() => handleDelete(categoria.id)}
+                          onClick={() => mostrarAlertaDel(categoria.id)}
                         />
                       </td>
                     </tr>

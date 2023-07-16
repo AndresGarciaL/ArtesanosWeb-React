@@ -1,12 +1,23 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./styles/Categorias_Dash.css";
 import SideBar_Dash from "./SideBar_Dash";
 import Header_Dash from "./Header_Dash";
 import Footer from "../components/Footer";
+import swal from "sweetalert";
 
 function Agregar_Producto() {
+  const mostrarAlerta = () => {
+    swal({
+      title: "Producto Agregado con Éxito",
+      text: "¡Vaya a la pagina de productos para ver los cambios!",
+      icon: "success",
+      button: "Aceptar",
+      timer: 5000,
+    });
+  };
+
   const [categoria, setCategoria] = useState("");
   const [categorias, setCategorias] = useState([]);
   const [nombre, setNombre] = useState("");
@@ -37,11 +48,12 @@ function Agregar_Producto() {
         precio,
         stock,
         categoria,
-        image
+        image,
       })
       .then((response) => {
         console.log("Producto agregado correctamente");
-        navegacion.push("/Dashboard/Categorias"); // Redirigir 
+        navegacion.push("/Dashboard/Categorias"); // Redirigir
+        limpiarFormulario(); // Restablecer los valores del formulario
       })
       .catch((error) => {
         console.error("Error al agregar el producto:", error);
@@ -62,6 +74,15 @@ function Agregar_Producto() {
     } else if (e.target.name === "image") {
       setImage(e.target.value);
     }
+  };
+
+  const limpiarFormulario = () => {
+    setNombre("");
+    setDescripcion("");
+    setPrecio("");
+    setStock("");
+    setCategoria("");
+    setImage("");
   };
 
   return (
@@ -136,6 +157,7 @@ function Agregar_Producto() {
                     margin: "20px auto",
                     fontSize: "18px",
                   }}
+                  onClick={() => mostrarAlerta()}
                 >
                   Agregar
                 </button>
