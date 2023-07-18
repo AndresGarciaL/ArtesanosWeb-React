@@ -147,3 +147,7 @@ button{
 .button-inicio-sesion{
     border-radius: 19px;
 }
+
+::placeholder{
+    color: #BFCCB5;
+}

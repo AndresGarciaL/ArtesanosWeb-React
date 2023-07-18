@@ -1,16 +1,14 @@
-import "../styles/Login.css";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import React, { useState } from "react";
-import axios from "axios";
-
+import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import axios from 'axios';
+import '../styles/Login.css';
 
 function Login() {
-
   const [campos, setCampos] = useState({
     email: '',
-    contrasena: ''
+    contrasena: '',
   });
+
   const [error, setError] = useState('');
   const navegacion = useNavigate();
 
@@ -29,18 +27,25 @@ function Login() {
     }
 
     axios.post('http://localhost:8081/acceso', campos)
-      .then(respuesta => {
-        if (respuesta.data.Estatus === "CORRECTO") {
+      .then((respuesta) => {
+        if (respuesta.data.Estatus === 'CORRECTO') {
           const token = respuesta.data.Usuario;
-          localStorage.setItem('usuario', token);
-          navegacion('/');
+          const decodedToken = JSON.parse(atob(token.split('.')[1]));
+          const rol = decodedToken.rol;
+
+          if (rol === 'admin') {
+            localStorage.setItem('usuario', token);
+            navegacion('/dashboard');
+          } else {
+            localStorage.setItem('usuario', token);
+            navegacion('/');
+          }
         } else {
           setError(respuesta.data.Error);
         }
       })
-      .catch(error => console.log("Error al iniciar sesión"));
+      .catch((error) => console.log('Error al iniciar sesión'));
   };
-
 
   return (
     <>
@@ -86,17 +91,14 @@ function Login() {
               <div className="register">
                 <p>
                   No tengo una cuenta <Link to={'/Register/'}>Registrarme</Link>
-
                 </p>
               </div>
             </form>
           </div>
         </div>
       </section>
-
     </>
   );
 }
 
-//3.- exportamos
 export default Login;

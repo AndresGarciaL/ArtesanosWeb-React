@@ -16,6 +16,7 @@ import Dashboard from "./dashboard/Dashboard";
 import Categorias_Dash from "./dashboard/Categorias_Dash";
 import Agregar_Categoria from "./dashboard/Agregar_Categoria";
 import Productos_Dash from "./dashboard/Productos_Dash";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
   return (
