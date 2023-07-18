@@ -1,90 +1,117 @@
 .title-produc-dash {
-    background-color: #82C294;
-    color: aliceblue;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Agregado para centrar verticalmente */
-    font-family: 'Poppins', sans-serif !important;
-    grid-column: 1 / -1;
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .separator {
-    margin: 20px 20px 20px 20px;
-    background-color: #82C294;
-    color: aliceblue;
-    padding: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Agregado para centrar verticalmente */
-    font-family: 'Poppins', sans-serif !important;
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .products-dash {
-    margin-top: 20px;
-    margin-right: 15px;
-    width: 80%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Actualizado para un diseño responsive */
-    gap: 20px;
-  }
-  
-  .product-dash {
-    background-color: lightgray;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px; /* Agregado para dar espacio entre los productos */
-  }
-  
-  .product-dash h3 {
-    text-align: center;
-  }
-  
-  .product-dash img {
-    width: 210px;
-    height: 137px;
-    margin-bottom: 10px;
-    margin-top: 15px;
-  }
-  
-  .icons-actions {
-    display: flex;
-    justify-content: space-around;
-  }
-   
-  .icons-actions p {
-   margin-left: 20px;
-   margin-right: 20px;
-  }
-  .icons-actions img {
-    width: 34px;
-    height: 34px;
-  }
-  
-  .img-del2 {
-    cursor: pointer;
-    padding: 5px;
-  }
-  
-  .img-del2:hover {
-    background-color: rgba(236, 130, 144, 0.952);
-  }
-  
-  .img-edit2 {
-    cursor: pointer;
-    padding: 5px;
-  }
-  
-  .img-edit2:hover {
-    background-color: rgba(234, 236, 130, 0.952);
-  }
-  
-  
+  background-color: #82C294;
+  color: aliceblue;
+  padding: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: 'Poppins', sans-serif !important;
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.title-prod-dash{
+  margin: auto;
+}
+
+.add-button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.separator {
+  margin: 0 20px 20px 20px; /* Modificado para eliminar el margen superior */
+  background-color: #82C294;
+  color: aliceblue;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Agregado para centrar verticalmente */
+  font-family: 'Poppins', sans-serif !important;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.products-dash {
+  margin-top: 20px;
+  margin-right: 15px;
+  width: 80%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Actualizado para un diseño responsive */
+  gap: 20px;
+}
+
+.product-dash {
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px; /* Agregado para dar espacio entre los productos */
+}
+
+.product-dash h3 {
+  text-align: center;
+}
+
+.product-dash img {
+  width: 210px;
+  height: 137px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+.icons-actions {
+  display: flex;
+  justify-content: space-around;
+}
+
+.icons-actions p {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.icons-actions img {
+  width: 34px;
+  height: 34px;
+}
+
+.img-del2 {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.img-del2:hover {
+  background-color: rgba(236, 130, 144, 0.952);
+}
+
+.img-edit2 {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.img-edit2:hover {
+  background-color: rgba(234, 236, 130, 0.952);
+}
+
+.icons-actions-edit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icons-actions-edit button {
+  padding: 10px;
+margin-left: 15 px;
+}
+.btn-cancelar:hover{
+
+  background-color: rgba(252, 48, 48, 0.856);
+}
+
+.btn-guardar:hover{
+  background-color: rgba(48, 252, 75, 0.856);
+}

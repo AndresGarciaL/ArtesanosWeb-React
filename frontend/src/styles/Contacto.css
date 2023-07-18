@@ -91,13 +91,19 @@
     }
 }
 
-
+.container-contactar{
+    display: flex;
+    justify-content: center;
+}
 .contactar {
+    width: 550px;
     margin-left: 2%;
     margin-right: 2%;
     padding: 2%;
     background-color: #82C294;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
 }
 
 .tituloh2 {
@@ -128,6 +134,7 @@ textarea {
     border: #82C294;
     width: 100%;
     padding: 2%;
+    height: 150px;
     border-radius: 5px;
     margin-bottom: 2% !important;
 }
@@ -149,17 +156,28 @@ input[type=checkbox] {
 }
 
 /* Estilos para Boton */
-#boton {
+.submit-btn{
     display: flex;
     justify-content: center;
     margin: 2%;
 }
+input[type=submit] {
+  display: flex;
+  align-items: center;
+}
+
 
 .botonEnviar {
-    border: solid #82C294;
+    justify-content: center;
     width: 15%;
     height: 50px;
     background-color: white;
+}
+.botonEnviar:hover {
+    justify-content: center;
+    width: 15%;
+    height: 50px;
+    background-color: rgba(209, 250, 238, 0.685);
 }
 
 /* Estilos para Detalles */

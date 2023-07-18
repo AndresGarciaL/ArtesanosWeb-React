@@ -16,7 +16,11 @@ import Dashboard from "./dashboard/Dashboard";
 import Categorias_Dash from "./dashboard/Categorias_Dash";
 import Agregar_Categoria from "./dashboard/Agregar_Categoria";
 import Productos_Dash from "./dashboard/Productos_Dash";
+<<<<<<< HEAD
 import PrivateRoute from "./components/PrivateRoute";
+=======
+import Agregar_Producto from "./dashboard/Agregar_Producto";
+>>>>>>> 0016e45cb4ea7ad736a092e51e03d1102d4a1fb0
 
 function App() {
   return (
@@ -37,6 +41,7 @@ function App() {
           <Route path="/Dashboard/Categorias" element={<Categorias_Dash />} />
           <Route path="/Dashboard/AgregarCategoria" element={<Agregar_Categoria />} />
           <Route path="/Dashboard/Productos" element={<Productos_Dash />} />
+          <Route path="/Dashboard/AgregarProducto" element={<Agregar_Producto />} />
 
         </Routes>
       </Router>

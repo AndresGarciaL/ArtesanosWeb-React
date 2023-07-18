@@ -17,7 +17,13 @@ function SideBar_Dash() {
             <ul className="menu-items">
               <li className="menu-item">
                 <Link to="/Dashboard">
-                  <h2 className="sidebar-title">DASHBOARD</h2>
+                  <h2 className="sidebar-title">
+                  <img
+                    className="img"
+                    src={require(`./icons/casa.png`)}
+                    alt=""
+                  />
+                    DASHBOARD</h2>
                 </Link>
               </li>
             </ul>

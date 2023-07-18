@@ -1,12 +1,23 @@
-import React, { useState,} from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./styles/Categorias_Dash.css";
 import SideBar_Dash from "./SideBar_Dash";
 import Header_Dash from "./Header_Dash";
 import Footer from "../components/Footer";
+import swal from "sweetalert";
 
 function Agregar_Categoria() {
+  const mostrarAlerta = () => {
+    swal({
+      title: "Categoria Agregada con Éxito",
+      text: "¡Recargue la pagina para ver los cambios!",
+      icon: "success",
+      button: "Aceptar",
+      timer: 5000,
+    });
+  };
+
   const [nombre, setNombre] = useState("");
   const navegacion = useNavigate();
 
@@ -17,7 +28,8 @@ function Agregar_Categoria() {
       .post("http://localhost:8081/addcategorias", { nombre })
       .then((response) => {
         console.log("Categoría agregada correctamente");
-        navegacion.push("/Dashboard/Categorias"); // Redirigir 
+        navegacion.push("/Dashboard/Categorias"); // Redirigir
+        setNombre(""); // Limpiar el campo de entrada
       })
       .catch((error) => {
         console.error("Error al agregar la categoría:", error);
@@ -58,6 +70,7 @@ function Agregar_Categoria() {
                     margin: "20px auto",
                     fontSize: "18px",
                   }}
+                  onClick={() => mostrarAlerta()}
                 >
                   Agregar
                 </button>
