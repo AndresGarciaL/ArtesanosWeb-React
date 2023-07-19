@@ -17,6 +17,15 @@ function Carrito() {
     localStorage.setItem("carrito", JSON.stringify(carrito));
   }, [carrito]);
 
+  // Calcular el precio total del carrito
+  const calcularPrecioTotal = () => {
+    let total = 0;
+    carrito.forEach((item) => {
+      total += item.precio * item.cantidad;
+    });
+    return total.toFixed(2);
+  };
+
   return (
     <>
       <Header />
@@ -27,7 +36,21 @@ function Carrito() {
           <div className="titulo-resumen-carrito">
             <h3>Resumen de compra</h3>
           </div>
-          {/* Resto del código para mostrar el resumen de compra */}
+          <div className="resumen-carrito">
+            {carrito.map((item) => (
+              <div key={item.id} className="item-resumen">
+                <span className="item-title">🟢 {item.nombre}</span>
+                <span className="item">Cantidad: {item.cantidad}</span>
+                <span className="item">Precio por unidad: ${item.precio.toFixed(2)}</span>
+                <span className="item">Subtotal: ${(item.precio * item.cantidad).toFixed(2)}</span>
+              </div>
+            ))}
+            <div className="total-carrito">
+              <span className="item-title-total">Total: </span>
+              <span className="item-title-total">${calcularPrecioTotal()}</span>
+            </div>
+            <button className="button-compra">Continuar compra</button>
+          </div>
         </div>
 
         <div className="container-carrito">
