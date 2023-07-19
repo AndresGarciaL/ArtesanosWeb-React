@@ -89,7 +89,7 @@ export const CarritoProvider = ({ children }) => {
         Swal.fire({
           icon: 'error',
           title: 'Producto eliminado',
-          text: 'Se elimino el producto del carrito de compras',
+          text: 'Se eliminó el producto del carrito de compras',
           confirmButtonText: 'OK',
         });
       }
@@ -105,7 +105,7 @@ export const CarritoProvider = ({ children }) => {
     Swal.fire({
       icon: 'error',
       title: 'Productos eliminados',
-      text: 'Se eliminaron todos los productos del carrito de compras',
+      text: 'Se eliminarón todos los productos del carrito de compras',
       confirmButtonText: 'OK',
     });
   };
