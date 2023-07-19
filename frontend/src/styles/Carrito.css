@@ -52,6 +52,12 @@
   justify-content: space-between;
 }
 
+.quantity-btn{
+background-color: #adb5bd;
+border-radius: 5px;
+margin: 0 5%;
+}
+
 .item-resumen {
   display: grid;
   text-align: justify;
@@ -75,6 +81,18 @@
 
 .item-title-total{
   font-size: large;
+}
+
+.button-compra{
+  background-color: #82C294;
+  color: white;
+  margin: 12% 0;
+  border-radius: 5px;
+  padding: 0 2%;
+}
+
+.button-compra:hover{
+  background-color: #45a049;
 }
 
 #continuar-compra {
