@@ -104,9 +104,7 @@ app.post('/addproducto', (req, res) => {
   });
 });
 
-<<<<<<< HEAD
 // RUTA PARA ELIMINAR UNA CATEGORIA 
-=======
 //RUTA PARA ELIMINAR UN PRODUCTO
 app.delete('/delproductos/:id', (req, res) => {
   const id = req.params.id;
@@ -142,8 +140,7 @@ app.put('/editproductos/:id', (req, res) => {
 });
 
 
- //RUTA PARA ELIMINAR UNA CATEGORIA 
->>>>>>> 0016e45cb4ea7ad736a092e51e03d1102d4a1fb0
+//RUTA PARA ELIMINAR UNA CATEGORIA 
 app.delete('/delcategoria/:id', (req, res) => {
   const id = req.params.id;
   const query = `DELETE FROM categorias WHERE id = ?`;
