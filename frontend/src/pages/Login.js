@@ -2,51 +2,56 @@ import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/Login.css';
+import jwt_decode from 'jwt-decode';
 
 function Login() {
   const [campos, setCampos] = useState({
-    email: '',
-    contrasena: '',
+    email: "",
+    contrasena: ""
   });
-
-  const [error, setError] = useState('');
   const navegacion = useNavigate();
+  const [error, setError] = useState('');
+  const [rol_id, setRolId] = useState(null); // Estado para almacenar el rol_id del usuario
 
-  const acceder = (e) => {
-    e.preventDefault();
-
-    if (campos.email === 'admin@admin.com' && campos.contrasena === 'admin') {
-      navegacion('/dashboard');
-      return;
+  function checaEmail(valor) {
+    if (valor.includes('')) {
+      setCampos({ ...campos, email: valor });
     }
+  }
 
-    // Validar campos vacíos
-    if (!campos.email || !campos.contrasena) {
-      setError('Por favor, completa todos los campos.');
-      return;
+  const redireccionarSegunRol = (rol_id) => {
+    if (rol_id === 1) {
+      navegacion('/Dashboard');
+    } else if (rol_id === 2) {
+      navegacion('/');
+    } else {
+      setError("Usuario desconocido");
     }
+  };
 
-    axios.post('http://localhost:8081/acceso', campos)
-      .then((respuesta) => {
+  const autenticar = (event) => {
+    event.preventDefault();
+    axios.post('http://localhost:8081/login', campos)
+      .then(respuesta => {
         if (respuesta.data.Estatus === 'CORRECTO') {
-          const token = respuesta.data.Usuario;
-          const decodedToken = JSON.parse(atob(token.split('.')[1]));
-          const rol = decodedToken.rol;
+          const usuarioToken = respuesta.data.Usuario;
+          localStorage.setItem('usuario', usuarioToken);
 
-          if (rol === 'admin') {
-            localStorage.setItem('usuario', token);
-            navegacion('/dashboard');
+          if (typeof usuarioToken === "string") {
+            const decodedToken = jwt_decode(usuarioToken);
+
+            setRolId(decodedToken.usuario); // Guarda el rol_id en el estado
+            redireccionarSegunRol(decodedToken.usuario); // Redirige al usuario según su rol_id
+          console.log(decodedToken)
           } else {
-            localStorage.setItem('usuario', token);
-            navegacion('/');
+            setError("Token inválido");
           }
         } else {
           setError(respuesta.data.Error);
         }
       })
-      .catch((error) => console.log('Error al iniciar sesión'));
+      .catch(error => console.log(error));
   };
-
   return (
     <>
       <section className="section-login">
@@ -57,7 +62,7 @@ function Login() {
         </div>
         <div className="form-box-login">
           <div className="form-value">
-            <form onSubmit={acceder}>
+            <form onSubmit={autenticar}>
               <h2 className="title-login">Login</h2>
               <div className="inputbox">
                 <img src={require("../images/icons/email.png")} className="img-form" />
@@ -66,7 +71,7 @@ function Login() {
                   name="email"
                   placeholder="Ingrese su correo electrónico"
                   value={campos.email}
-                  onChange={(e) => setCampos({ ...campos, email: e.target.value })}
+                  onChange={e => checaEmail(e.target.value)}
                 />
                 <label htmlFor="">Email</label>
               </div>
@@ -77,7 +82,7 @@ function Login() {
                   name="contrasena"
                   placeholder="Ingrese su contraseña"
                   value={campos.contrasena}
-                  onChange={(e) => setCampos({ ...campos, contrasena: e.target.value })}
+                  onChange={e => setCampos({ ...campos, contrasena: e.target.value })}
                 />
                 <label htmlFor="">Contraseña</label>
               </div>

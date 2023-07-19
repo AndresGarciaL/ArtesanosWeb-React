@@ -197,88 +197,26 @@ app.post('/registrar', (req, res) => {
   });
 });
 
-// Login
-app.post('/acceso', (req, res) => {
-  const { email, contrasena } = req.body;
-  const sql = 'SELECT * FROM usuarios WHERE email = ?';
-  connection.query(sql, [email], (error, resultado) => {
-    if (error) {
-      console.log('Error al realizar inicio de sesión', error);
-      res.status(500).json({ Estatus: 'ERROR', Error: 'Error al realizar inicio de sesión' });
-    } else {
-      if (resultado.length > 0) {
-        // Verificar la contraseña con bcrypt
-        bcrypt.compare(contrasena, resultado[0].contrasena, (error, coincide) => {
-          if (coincide) {
-            const sql = 'SELECT rol FROM usuarios WHERE email = ?';
-            connection.query(sql, [email], (error, resultados) => {
-              if (error) {
-                console.log('Error al obtener el rol del usuario', error);
-                res.status(500).json({ Estatus: 'ERROR', Error: 'Error al realizar inicio de sesión' });
-              } else {
-                const rol = resultados[0].rol;
-                const token = jwt.sign({ usuario: 'administrador', rol }, 'juan', { expiresIn: '1d' });
-                res.cookie('token', token);
-                res.json({ Estatus: 'CORRECTO', Usuario: token });
-              }
-            });
-          } else {
-            res.json({ Estatus: 'ERROR', Error: 'Usuario o contraseña incorrecta' });
-          }
-        });
-      } else {
-        res.json({ Estatus: 'ERROR', Error: 'Usuario o contraseña incorrecta' });
+  //* LOGIN
+  app.post('/login', (peticion, respuesta) => {
+    const sql = "SELECT * FROM usuarios WHERE email = ? AND contrasena = ?";
+    connection.query(sql, [peticion.body.email, peticion.body.contrasena], (error, resultado) => {
+      if (error) {
+        return respuesta.json({ Error: "Error en la consulta" });
       }
-    }
+      if (resultado.length > 0) {
+        const usuario = resultado[0];
+        const token = jwt.sign({ usuario: usuario.rol_id }, "miclavesecreta", { expiresIn: '1d' });
+        console.log(usuario.rol_id);
+        console.log(token);
+        respuesta.cookie('token', token); // Guarda el token en una cookie
+        return respuesta.json({ Estatus: "CORRECTO", Usuario: token });
+      } else {
+        return respuesta.json({ Estatus: "Error", Error: "Usuario o Contraseña Incorrecto" });
+      }
+    });
   });
-});
-
-// Ruta para el dashboard
-app.get('/dashboard', verificarToken, (req, res) => {
-  const token = req.cookies.token;
-
-  if (!token) {
-    res.status(401).json({ error: 'Acceso denegado. Debes iniciar sesión primero.' });
-    return;
-  }
-
-  try {
-    const decodedToken = jwt.verify(token, 'juan');
-    const rol = decodedToken.rol;
-
-    if (rol !== 'admin') {
-      res.status(403).json({ error: 'Acceso denegado. No tienes permiso para acceder al dashboard.' });
-      return;
-    }
-
-    // El usuario tiene un token válido y tiene rol de 'admin'
-    // Realizar acciones específicas para el dashboard aquí
-
-    res.json({ message: 'Acceso al dashboard permitido.' });
-  } catch (error) {
-    res.status(401).json({ error: 'Acceso denegado. Token inválido.' });
-  }
-});
-
-// Función de middleware para verificar el token
-function verificarToken(req, res, next) {
-  const token = req.cookies.token;
-
-  if (!token) {
-    res.status(401).json({ error: 'Acceso denegado. Debes iniciar sesión primero.' });
-    return;
-  }
-
-  jwt.verify(token, 'juan', (error, decodedToken) => {
-    if (error) {
-      res.status(401).json({ error: 'Acceso denegado. Token inválido.' });
-      return;
-    }
-
-    req.usuario = decodedToken.usuario;
-    next();
-  });
-}
+  
 
 // Iniciar server
 const PORT = 8081;

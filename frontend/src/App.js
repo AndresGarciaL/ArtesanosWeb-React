@@ -27,7 +27,7 @@ function App() {
           <Route path="/" element={<Inicio />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
+          
           <Route path="/Artesanos" element={<Artesanos />} />
           <Route path="/Conocenos" element={<Conocenos />} />
           <Route path="/Contacto" element={<Contacto />} />
@@ -35,6 +35,9 @@ function App() {
           <Route path="/Tienda" element={<Tienda />} />
           <Route path="/categorias/:id" element={<Categorias />} />
           <Route path="/Carrito" element={<Carrito />} />
+
+         
+          <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Dashboard/Categorias" element={<Categorias_Dash />} />
           <Route path="/Dashboard/AgregarCategoria" element={<Agregar_Categoria />} />
           <Route path="/Dashboard/Productos" element={<Productos_Dash />} />
