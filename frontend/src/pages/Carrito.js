@@ -15,7 +15,16 @@ function Carrito() {
   useEffect(() => {
     // Guardar carrito en el almacenamiento local
     localStorage.setItem("carrito", JSON.stringify(carrito));
-  }, [carrito]);
+  }, [carrito]);  
+
+  // Calcular el precio total del carrito
+  const calcularPrecioTotal = () => {
+    let total = 0;
+    carrito.forEach((item) => {
+      total += item.precio * item.cantidad;
+    });
+    return total.toFixed(2);
+  };
 
   return (
     <>
@@ -23,11 +32,24 @@ function Carrito() {
       <Breadcrumb currentPage="Carrito" />
 
       <section className="section-carrito">
-        <div className="detalle-carrito">
+      <div className="detalle-carrito">
           <div className="titulo-resumen-carrito">
             <h3>Resumen de compra</h3>
           </div>
-          {/* Resto del código para mostrar el resumen de compra */}
+          <div className="resumen-carrito">
+            {carrito.map((item) => (
+              <div key={item.id} className="item-resumen">
+                <span>{item.nombre}</span>
+                <span>Cantidad: {item.cantidad}</span>
+                <span>Precio por unidad: ${item.precio.toFixed(2)}</span>
+                <span>Subtotal: ${(item.precio * item.cantidad).toFixed(2)}</span>
+              </div>
+            ))}
+            <div className="total-carrito">
+              <span>Total:</span>
+              <span>${calcularPrecioTotal()}</span>
+            </div>
+          </div>
         </div>
 
         <div className="container-carrito">
