@@ -18,6 +18,8 @@ import Agregar_Categoria from "./dashboard/Agregar_Categoria";
 import Productos_Dash from "./dashboard/Productos_Dash";
 import PrivateRoute from "./components/PrivateRoute";
 import Agregar_Producto from "./dashboard/Agregar_Producto";
+import Compra from "./pages/Compra";
+
 
 function App() {
   return (
@@ -35,6 +37,7 @@ function App() {
           <Route path="/Tienda" element={<Tienda />} />
           <Route path="/categorias/:id" element={<Categorias />} />
           <Route path="/Carrito" element={<Carrito />} />
+          <Route path="/Compra" element={<Compra />} />
 
          
           <Route path="/Dashboard" element={<Dashboard />} />
