@@ -9,7 +9,8 @@ import Producto from "../components/Producto";
 
 function Carrito() {
   const { productos, agregarAlCarrito } = useContext(CarritoContext);
-  const { carrito, eliminarDelCarrito } = useContext(CarritoContext);
+  const { carrito, eliminarTotalDelCarrito } = useContext(CarritoContext);
+  const { carrito2, eliminarDelCarrito } = useContext(CarritoContext);
 
   useEffect(() => {
     // Guardar carrito en el almacenamiento local
@@ -46,7 +47,7 @@ function Carrito() {
                 <div className="botones-carrito">
                   <div className="btn-carrito">
                     <div className="btn-eliminar">
-                      <button onClick={() => eliminarDelCarrito(item)}>
+                      <button onClick={() => eliminarTotalDelCarrito(item)}>
                         Eliminar
                       </button>
                     </div>
@@ -64,7 +65,6 @@ function Carrito() {
                   <button
                     className="quantity-btn minus"
                     onClick={() =>
-                      item.cantidad > 1 &&
                       eliminarDelCarrito({
                         ...item,
                         cantidad: item.cantidad - 1,
@@ -83,7 +83,7 @@ function Carrito() {
                   <button
                     className="quantity-btn plus"
                     onClick={() =>
-                      eliminarDelCarrito({
+                      agregarAlCarrito({
                         ...item,
                         cantidad: item.cantidad + 1,
                       })

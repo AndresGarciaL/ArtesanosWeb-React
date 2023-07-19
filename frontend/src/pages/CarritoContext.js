@@ -46,13 +46,41 @@ export const CarritoProvider = ({ children }) => {
   };
 
   const eliminarDelCarrito = (producto) => {
+    const productoEnCarrito = carrito.find((item) => item.id === producto.id);
+    if (productoEnCarrito) {
+      // Verificar si la cantidad actual es mayor a 1 antes de restar
+      if (productoEnCarrito.cantidad > 1) {
+        const nuevoCarrito = carrito.map((item) =>
+          item.id === producto.id
+            ? { ...item, cantidad: item.cantidad - 1 }
+            : item
+        );
+        setCarrito(nuevoCarrito);
+      } else {
+        // Eliminar el producto del carrito si la cantidad es 1
+        const nuevoCarrito = carrito.filter((item) => item.id !== producto.id);
+        setCarrito(nuevoCarrito);
+      }
+    } else {
+      setCarrito([...carrito, { ...producto, cantidad: 1 }]);
+    }
+  };
+
+
+
+
+
+
+
+  const eliminarTotalDelCarrito = (producto) => {
     const nuevoCarrito = carrito.filter((item) => item.id !== producto.id);
     setCarrito(nuevoCarrito);
   };
 
+
   return (
     <CarritoContext.Provider
-      value={{ productos, carrito, agregarAlCarrito, eliminarDelCarrito }}
+      value={{ productos, carrito, agregarAlCarrito, eliminarTotalDelCarrito, eliminarDelCarrito }}
     >
       {children}
     </CarritoContext.Provider>
