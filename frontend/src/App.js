@@ -18,18 +18,27 @@ import Agregar_Categoria from "./dashboard/Agregar_Categoria";
 import Productos_Dash from "./dashboard/Productos_Dash";
 import PrivateRoute from "./components/PrivateRoute";
 import Agregar_Producto from "./dashboard/Agregar_Producto";
+import Compra from "./pages/Compra";
 
 
 
 function App() {
   return (
     <CarritoProvider>
-      
-        <Router>
-          <Routes>
-            <Route path="/" element={<Inicio />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/Register" element={<Register />} />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Inicio />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+          
+          <Route path="/Artesanos" element={<Artesanos />} />
+          <Route path="/Conocenos" element={<Conocenos />} />
+          <Route path="/Contacto" element={<Contacto />} />
+          <Route path="/Shop" element={<Shop />} />
+          <Route path="/Tienda" element={<Tienda />} />
+          <Route path="/categorias/:id" element={<Categorias />} />
+          <Route path="/Carrito" element={<Carrito />} />
+          <Route path="/Compra" element={<Compra />} />
 
             <Route path="/Artesanos" element={<Artesanos />} />
             <Route path="/Conocenos" element={<Conocenos />} />
