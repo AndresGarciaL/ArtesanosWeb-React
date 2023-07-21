@@ -10,6 +10,7 @@ function Compra() {
             purchase_units: [
                 {
                     amount: {
+                        currency_code: 'MXN',
                         value: "0.01",
                     },
                 },
