@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+* {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: small;
+}
+
+.hr {
+  margin: 2px;
+}
+
+.title-users-dash {
+  background-color: #82C294;
+  color: aliceblue;
+  padding: 5px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  font-family: 'Poppins', sans-serif !important;
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.title-aside {
+  margin-top: 20px;
+  background-color: #82C294;
+  color: aliceblue;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif !important;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.separator {
+  margin: 20px 0 20px 20px;
+  background-color: #82C294;
+  color: aliceblue;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif !important;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.aside {
+  margin-left: 20px;
+  width: 15%;
+}
+
+.users-info {
+  justify-self: center;
+  width: 1000px;
+  padding: 15px;
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+}
+
+.dash-users {
+  margin: 20px;
+  margin-right: 15px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+  align-items: center;
+}
+
+.img-del {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.img-del:hover {
+  background-color: rgba(236, 130, 144, 0.952);
+}
+
+
+.img-cancel {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.img-cancel:hover {
+  background-color: rgba(201, 9, 35, 0.801);
+}
+
+.img-guardar {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.img-guardar:hover {
+  background-color: rgba(9, 201, 25, 0.801);
+}
+
+.img-edit {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.img-edit:hover {
+  background-color: rgba(234, 236, 130, 0.952);
+}
+
+@media screen and (max-width: 768px) {
+  .container-users {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .title-users-dash {
+    width: 90%;
+  }
+
+  .dash-users {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .separator {
+    display: none;
+  }
+}

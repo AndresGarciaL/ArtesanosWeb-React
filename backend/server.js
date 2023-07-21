@@ -109,7 +109,7 @@ app.post('/addproducto', (req, res) => {
   });
 });
 
-// RUTA PARA ELIMINAR UNA CATEGORIA 
+
 //RUTA PARA ELIMINAR UN PRODUCTO
 app.delete('/delproductos/:id', (req, res) => {
   const id = req.params.id;
@@ -179,9 +179,104 @@ app.put('/editcategoria/:id', (req, res) => {
   });
 });
 
+//Ruta para obtener todos los roles
+// Ruta para obtener todos los roles
+app.get('/roles', (req, res) => {
+  const query = 'SELECT * FROM roles';
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error al obtener los roles:', err);
+      res.status(500).json({ error: 'Error al obtener los roles' });
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
+
+// Ruta para obtener todos los usuarios
+app.get('/usuarios', (req, res) => {
+  const query = 'SELECT * FROM usuarios';
+
+  connection.query(query, (err, results) => {
+    if (err) {
+      console.error('Error al obtener los usuarios:', err);
+      res.status(500).json({ error: 'Error al obtener los usuarios' });
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
+//RUTA PARA AGREGAR UN NUEVO USUARIO
+app.post('/addusuarios', (req, res) => {
+  const { nombre, apellidos, email, contrasena, direccion, rol_id, estatus } = req.body;
+
+  // Generar el hash de la contraseña
+  bcrypt.hash(contrasena, 10, (error, hash) => {
+    if (error) {
+      console.error('Error al generar el hash de la contraseña:', error);
+      res.status(500).json({ error: 'Error al añadir el usuario' });
+      return;
+    }
+
+    // El hash se encuentra en la variable 'hash', ahora podemos usarlo en la consulta
+    const query = `INSERT INTO usuarios (nombre, apellidos, email, contrasena, direccion, rol_id, estatus) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    const values = [nombre, apellidos, email, hash, direccion, rol_id, estatus];
+
+    connection.query(query, values, (err, results) => {
+      if (err) {
+        console.error('Error al añadir el usuario:', err);
+        res.status(500).json({ error: 'Error al añadir el usuario' });
+        return;
+      }
+
+      res.json({ message: 'Usuario añadido correctamente' });
+    });
+  });
+});
+
+//RUTA PARA ELIMINAR UN USUARIO
+app.delete('/delusuario/:id', (req, res) => {
+  const id = req.params.id;
+  const query = `DELETE FROM usuarios WHERE id = ?`;
+
+  connection.query(query, [id], (err, results) => {
+    if (err) {
+      console.error('Error al eliminar el usuario:', err);
+      res.status(500).json({ error: 'Error al eliminar el usuario' });
+      return;
+    }
+
+    res.json({ message: 'Usuario eliminado correctamente' });
+  });
+});
+
+
+//RUTA PARA MODIFICAR UN USUARIO
+app.put('/editusuario/:id', (req, res) => {
+  const id = req.params.id;
+  const { nombre, apellidos, email, contrasena, direccion, rol_id, estatus } = req.body;
+  const query = `UPDATE usuarios SET nombre = ?, apellidos = ?, email = ?, contrasena = ?, direccion = ?, rol_id = ?, estatus = ? WHERE id = ?`;
+  const values = [nombre, apellidos, email, contrasena, direccion, rol_id, estatus, id];
+
+  connection.query(query, values, (err, results) => {
+    if (err) {
+      console.error('Error al modificar el usuario:', err);
+      res.status(500).json({ error: 'Error al modificar el usuario' });
+      return;
+    }
+
+    res.json({ message: 'Información del usuario modificada correctamente' });
+  });
+});
+
 // Register
 app.post('/registrar', (req, res) => {
-  const { nombre, email, contrasena } = req.body;
+  const { nombre,apellidos, email, contrasena } = req.body;
 
   // Generar el hash de la contraseña
   bcrypt.hash(contrasena, 10, (error, hash) => {
@@ -189,8 +284,8 @@ app.post('/registrar', (req, res) => {
       console.log('Error al generar el hash de la contraseña', error);
       res.status(500).json({ Estatus: 'ERROR', Error: 'Error al registrar usuario' });
     } else {
-      const sql = 'INSERT INTO usuarios (nombre, email, contrasena) VALUES (?, ?, ?)';
-      connection.query(sql, [nombre, email, hash], (error, resultado) => {
+      const sql = 'INSERT INTO usuarios (nombre,apellidos, email, contrasena,rol_id, estatus) VALUES (?,?,?,?,2,1)';
+      connection.query(sql, [nombre,apellidos, email, hash], (error, resultado) => {
         if (error) {
           console.log('Error al registrar usuario', error);
           res.status(500).json({ Estatus: 'ERROR', Error: 'Error al registrar usuario' });

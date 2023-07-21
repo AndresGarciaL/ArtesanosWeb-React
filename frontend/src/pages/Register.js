@@ -1,15 +1,16 @@
 import "../styles/Register.css";
-import { useNavigate,Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from 'axios';
 
 function Register() {
   const [campos, setCampos] = useState({
     nombre: '',
+    apellidos: '', // Nuevo campo de apellido
     email: '',
     contrasena: ''
   });
-  
+
   const [error, setError] = useState('');
   const [mostrarError, setMostrarError] = useState(false);
 
@@ -19,7 +20,7 @@ function Register() {
     e.preventDefault();
 
     // Verificar si hay campos vacíos
-    if (campos.nombre === '' || campos.email === '' || campos.contrasena === '') {
+    if (campos.nombre === '' || campos.apellidos === '' || campos.email === '' || campos.contrasena === '') {
       setError('Completa todos los campos correctamente ⚠︎');
       setMostrarError(true);
       return;
@@ -59,7 +60,8 @@ function Register() {
               <h2 className="title-register">Registro</h2>
               <div className="inputbox">
                 <img src={require("../images/icons/usuario.png")} className="img-form" />
-                <input type="text"
+                <input
+                  type="text"
                   name="nombre"
                   placeholder="Ingresa tu nombre completo"
                   value={campos.nombre}
@@ -68,8 +70,20 @@ function Register() {
                 <label htmlFor="">Nombre completo</label>
               </div>
               <div className="inputbox">
+                <img src={require("../images/icons/usuario.png")} className="img-form" />
+                <input
+                  type="text"
+                  name="apellido"
+                  placeholder="Ingresa tu apellido completo"
+                  value={campos.apellidos}
+                  onChange={(e) => setCampos({ ...campos, apellidos: e.target.value })}
+                />
+                <label htmlFor="">Apellido completo</label>
+              </div>
+              <div className="inputbox">
                 <img src={require("../images/icons/email.png")} className="img-form" />
-                <input type="email"
+                <input
+                  type="email"
                   name="email"
                   placeholder="Ingresa tu correo electrónico"
                   value={campos.email}

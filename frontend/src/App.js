@@ -19,6 +19,8 @@ import Productos_Dash from "./dashboard/Productos_Dash";
 import PrivateRoute from "./components/PrivateRoute";
 import Agregar_Producto from "./dashboard/Agregar_Producto";
 import Compra from "./pages/Compra";
+import Usuarios_Dash from "./dashboard/Usuarios_Dash";
+import Agregar_Usuario from "./dashboard/Agregar_Usuario";
 
 
 
@@ -66,6 +68,14 @@ function App() {
 
           <Route element={<PrivateRoute roles={[1]}/>}>
             <Route path="/Dashboard/AgregarProducto" element={<Agregar_Producto/>}/>
+          </Route>
+
+          <Route element={<PrivateRoute roles={[1]}/>}>
+            <Route path="/Dashboard/Usuarios" element={<Usuarios_Dash/>}/>
+          </Route>
+          
+          <Route element={<PrivateRoute roles={[1]}/>}>
+            <Route path="/Dashboard/AgregarUsuario" element={<Agregar_Usuario/>}/>
           </Route>
 
           </Routes>

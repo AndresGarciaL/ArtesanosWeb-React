@@ -3,6 +3,11 @@
     height: 100%;
     display: flex;
   }
+  .tarjeta-user{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
      
   .container-cat{
     width: 90%;
