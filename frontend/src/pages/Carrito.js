@@ -52,6 +52,7 @@ function Carrito() {
             </div>
             <Link to="/Compra">
               <button className="button-compra">Continuar compra</button>
+              <Compra/>
             </Link>
           </div>
         </div>
