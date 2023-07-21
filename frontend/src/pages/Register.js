@@ -1,5 +1,5 @@
 import "../styles/Register.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -93,7 +93,7 @@ function Register() {
               <button type="submit" className="button-inicio-sesion">Registrarme</button>
               <div className="register">
                 <p>
-                  Ya tengo una cuenta <a href="/register.html"> Iniciar Sesion</a>
+                  Ya tengo una cuenta <Link to="/Login"> Iniciar Sesion</Link>
                 </p>
               </div>
             </form>

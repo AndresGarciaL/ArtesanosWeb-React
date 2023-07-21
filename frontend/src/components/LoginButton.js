@@ -5,15 +5,17 @@ import { useNavigate } from 'react-router-dom';
 
 function LoginButton() {
   const [clicked, setClicked] = useState(false);
+  const [login, setLogin] = useState(localStorage.getItem('usuario') || false); // Inicializamos el estado 'login' con el valor del localStorage o false
+  const navegacion = useNavigate();
+
   const handleClick = () => {
     setClicked(!clicked);
   };
 
-  const login = localStorage.getItem('usuario');
-  const navegacion = useNavigate();
-
   const salir = () => {
     localStorage.removeItem('usuario');
+    localStorage.removeItem('token'); // Limpiamos también el token del localStorage al salir
+    setLogin(false); // Actualizamos el estado para reflejar que el usuario ha cerrado sesión
     navegacion('/');
   }
 

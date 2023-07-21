@@ -28,7 +28,7 @@ function Agregar_Categoria() {
       .post("http://localhost:8081/addcategorias", { nombre })
       .then((response) => {
         console.log("Categoría agregada correctamente");
-        navegacion.push("/Dashboard/Categorias"); // Redirigir
+        navegacion("/Dashboard/Categorias"); // Redirigir
         setNombre(""); // Limpiar el campo de entrada
       })
       .catch((error) => {

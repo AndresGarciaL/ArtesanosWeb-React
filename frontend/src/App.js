@@ -19,35 +19,51 @@ import Productos_Dash from "./dashboard/Productos_Dash";
 import PrivateRoute from "./components/PrivateRoute";
 import Agregar_Producto from "./dashboard/Agregar_Producto";
 
+
+
 function App() {
   return (
     <CarritoProvider>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Inicio />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
-          
-          <Route path="/Artesanos" element={<Artesanos />} />
-          <Route path="/Conocenos" element={<Conocenos />} />
-          <Route path="/Contacto" element={<Contacto />} />
-          <Route path="/Shop" element={<Shop />} />
-          <Route path="/Tienda" element={<Tienda />} />
-          <Route path="/categorias/:id" element={<Categorias />} />
-          <Route path="/Carrito" element={<Carrito />} />
+      
+        <Router>
+          <Routes>
+            <Route path="/" element={<Inicio />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/Register" element={<Register />} />
 
-         
-          <Route path="/Dashboard" element={<Dashboard />} />
-          <Route path="/Dashboard/Categorias" element={<Categorias_Dash />} />
-          <Route path="/Dashboard/AgregarCategoria" element={<Agregar_Categoria />} />
-          <Route path="/Dashboard/Productos" element={<Productos_Dash />} />
-          <Route path="/Dashboard/AgregarProducto" element={<Agregar_Producto />} />
+            <Route path="/Artesanos" element={<Artesanos />} />
+            <Route path="/Conocenos" element={<Conocenos />} />
+            <Route path="/Contacto" element={<Contacto />} />
+            <Route path="/Shop" element={<Shop />} />
+            <Route path="/Tienda" element={<Tienda />} />
+            <Route path="/categorias/:id" element={<Categorias />} />
+            <Route path="/Carrito" element={<Carrito />} />
 
-        </Routes>
-      </Router>
+            <Route element={<PrivateRoute roles={[1]}/>}>
+            <Route path="/Dashboard" element={<Dashboard/>}/>
+          </Route>
+
+          <Route element={<PrivateRoute roles={[1]}/>}>
+            <Route path="/Dashboard/Categorias" element={<Categorias_Dash />}/>
+          </Route>
+
+          <Route element={<PrivateRoute roles={[1]}/>}>
+            <Route path="/Dashboard/AgregarCategoria" element={<Agregar_Categoria />}/>
+          </Route>
+           
+          <Route element={<PrivateRoute roles={[1]}/>}>
+            <Route path="/Dashboard/Productos" element={<Productos_Dash/>}/>
+          </Route>
+
+          <Route element={<PrivateRoute roles={[1]}/>}>
+            <Route path="/Dashboard/AgregarProducto" element={<Agregar_Producto/>}/>
+          </Route>
+
+          </Routes>
+        </Router>
+      
     </CarritoProvider>
   );
 }
 
 export default App;
-

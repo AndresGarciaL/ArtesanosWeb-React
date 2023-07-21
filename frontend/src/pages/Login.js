@@ -1,98 +1,105 @@
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
 import axios from 'axios';
+import { UserContext } from '../components/UserContext';
 import '../styles/Login.css';
-import jwt_decode from 'jwt-decode';
 
 function Login() {
-  const [campos, setCampos] = useState({
+  const [body, setBody] = useState({
     email: "",
     contrasena: ""
   });
-  const navegacion = useNavigate();
-  const [error, setError] = useState('');
-  const [rol_id, setRolId] = useState(null); // Estado para almacenar el rol_id del usuario
+  const [errores, setErrores] = useState({});
+  const { usuario, obtenerUsuarioActual } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  function checaEmail(valor) {
-    if (valor.includes('')) {
-      setCampos({ ...campos, email: valor });
+  useEffect(() => {
+    const verificarSesion = localStorage.getItem("token");
+    if (verificarSesion && !usuario) {
+      navigate("/");
     }
-  }
+  }, [usuario, navigate]);
 
-  const redireccionarSegunRol = (rol_id) => {
-    if (rol_id === 1) {
-      navegacion('/Dashboard');
-    } else if (rol_id === 2) {
-      navegacion('/');
-    } else {
-      setError("Usuario desconocido");
+  const cambioEntrada = (e) => {
+    setBody({ ...body, [e.target.name]: e.target.value });
+    setErrores({ ...errores, [e.target.name]: "" });
+  };
+
+  const Enviar = async (e) => {
+    e.preventDefault(); // Evita que se realice la acción por defecto del submit.
+
+    setErrores({ email: "", contrasena: "" });
+
+    if (!body.email || !body.contrasena) {
+      setErrores((prevErrores) => ({
+        ...prevErrores,
+        email: body.email ? "" : "Debe llenar todos los campos.",
+        contrasena: body.contrasena ? "" : "Debe llenar todos los campos."
+      }));
+      return;
+    }
+
+    try {
+      const verificarCorreo = await axios.post("http://localhost:8081/VerificarCorreo", { email: body.email });
+      if (verificarCorreo.data.Estatus === "CORRECTO") {
+        return setErrores({ email: "El usuario que ingresaste no existe." });
+      }
+
+      const verificarUsuario = await axios.post("http://localhost:8081/login", body);
+      if (verificarUsuario.data.Estatus === "CORRECTO") {
+        localStorage.setItem("token", verificarUsuario.data.token);
+        await obtenerUsuarioActual();
+        navigate("/Dashboard");
+      } else {
+        setErrores({ contrasena: "Email o Contraseña incorrecta." });
+      }
+    } catch (error) {
+      console.log("Se produjo un error: ", error);
     }
   };
 
-  const autenticar = (event) => {
-    event.preventDefault();
-    axios.post('http://localhost:8081/login', campos)
-      .then(respuesta => {
-        if (respuesta.data.Estatus === 'CORRECTO') {
-          const usuarioToken = respuesta.data.Usuario;
-          localStorage.setItem('usuario', usuarioToken);
-
-          if (typeof usuarioToken === "string") {
-            const decodedToken = jwt_decode(usuarioToken);
-
-            setRolId(decodedToken.usuario); // Guarda el rol_id en el estado
-            redireccionarSegunRol(decodedToken.usuario); // Redirige al usuario según su rol_id
-          console.log(decodedToken)
-          } else {
-            setError("Token inválido");
-          }
-        } else {
-          setError(respuesta.data.Error);
-        }
-      })
-      .catch(error => console.log(error));
-  };
   return (
     <>
       <section className="section-login">
-        <div id="img">
+      <div id="img">
           <a href="/">
             <img src={require("../images/logo-Artesanos-150px.png")} className="logo-form" />
           </a>
         </div>
         <div className="form-box-login">
           <div className="form-value">
-            <form onSubmit={autenticar}>
+            <form onSubmit={Enviar}>
               <h2 className="title-login">Login</h2>
               <div className="inputbox">
-                <img src={require("../images/icons/email.png")} className="img-form" />
+                <img src={require("../images/icons/email.png")} className="img-form" alt="Email icon" />
                 <input
                   type="email"
                   name="email"
                   placeholder="Ingrese su correo electrónico"
-                  value={campos.email}
-                  onChange={e => checaEmail(e.target.value)}
+                  value={body.email}
+                  onChange={cambioEntrada}
                 />
-                <label htmlFor="">Email</label>
+                <label htmlFor="email">Email</label>
               </div>
               <div className="inputbox">
-                <img src={require("../images/icons/candado.png")} className="img-form" />
+                <img src={require("../images/icons/candado.png")} className="img-form" alt="Password icon" />
                 <input
                   type="password"
                   name="contrasena"
                   placeholder="Ingrese su contraseña"
-                  value={campos.contrasena}
-                  onChange={e => setCampos({ ...campos, contrasena: e.target.value })}
+                  value={body.contrasena}
+                  onChange={cambioEntrada}
                 />
-                <label htmlFor="">Contraseña</label>
+                <label htmlFor="contrasena">Contraseña</label>
               </div>
               <div className="forget">
-                <label htmlFor="">
-                  <a href="#">¿Olvidaste tu contraseña?</a>
+                <label>
+                  <Link to="/olvidaste-contrasena">¿Olvidaste tu contraseña?</Link>
                 </label>
               </div>
-              <button type="submit" className="button-inicio-sesion">Iniciar Sesion</button>
-              {error && <p>{error}</p>}
+              <button type="submit" className="button-inicio-sesion"  onClick={Enviar}>Iniciar Sesion</button>
+              {errores.email && <p>{errores.email}</p>}
+              {errores.contrasena && <p>{errores.contrasena}</p>}
               <div className="register">
                 <p>
                   No tengo una cuenta <Link to={'/Register/'}>Registrarme</Link>

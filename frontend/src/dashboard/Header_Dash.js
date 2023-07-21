@@ -5,7 +5,7 @@ import LoginButton from "../components/LoginButton";
 import BurgerButton from "../components/BurgerButton";
 
 function Header_Dash() {
-  const [clicked, setClicked] = useState(false);
+  const [clicked, setClicked] = useState(true);
   const handleClick = () => {
     setClicked(!clicked);
   };

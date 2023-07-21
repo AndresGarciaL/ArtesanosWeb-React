@@ -3,10 +3,15 @@ import mysql from 'mysql';
 import cors from 'cors';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import morgan from 'morgan';
+import jwt_decode from 'jwt-decode';
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+app.use(morgan('dev'));
+
+
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -198,25 +203,70 @@ app.post('/registrar', (req, res) => {
 });
 
   //* LOGIN
-  app.post('/login', (peticion, respuesta) => {
-    const sql = "SELECT * FROM usuarios WHERE email = ? AND contrasena = ?";
-    connection.query(sql, [peticion.body.email, peticion.body.contrasena], (error, resultado) => {
-      if (error) {
-        return respuesta.json({ Error: "Error en la consulta" });
-      }
-      if (resultado.length > 0) {
-        const usuario = resultado[0];
-        const token = jwt.sign({ usuario: usuario.rol_id }, "miclavesecreta", { expiresIn: '1d' });
-        console.log(usuario.rol_id);
-        console.log(token);
-        respuesta.cookie('token', token); // Guarda el token en una cookie
-        return respuesta.json({ Estatus: "CORRECTO", Usuario: token });
+  app.post("/login", (peticion, respuesta) => {
+    const { email, contrasena } = peticion.body;
+    const query = "SELECT contrasena FROM usuarios WHERE email = ?";
+    connection.query(query, [email], (error, resultados) => {
+      if (error) return respuesta.json({ Error: "Error en la consulta." });
+      if (resultados.length === 0) return respuesta.json({ Error: "Error en la consulta" });
+      const usuario = resultados[0];
+      const match = bcrypt.compareSync(contrasena, usuario.contrasena);
+      if (match) {
+        const token = jwt.sign({ email: email }, "secreto"); // Corrige el campo aquí
+        return respuesta.json({ Estatus: "CORRECTO", Resultado: usuario, token });
       } else {
-        return respuesta.json({ Estatus: "Error", Error: "Usuario o Contraseña Incorrecto" });
+        return respuesta.json({ Error: "Error en las credenciales del usuario" });
       }
     });
   });
   
+  app.post("/VerificarCorreo", (peticion, respuesta) => {
+    const { email } = peticion.body;
+    const query = "SELECT * FROM usuarios WHERE email = ?";
+    connection.query(query, [email], (error, resultados) => {
+      if (error) {
+        return respuesta.json({ Error: "Error en la consulta" });
+      } else {
+        if (resultados.length > 0) {
+          return respuesta.json({ Estatus: "Correcto", Resultado: resultados });
+        } else {
+          return respuesta.json({ Error: "El usuario no existe" });
+        }
+      }
+    });
+  });
+  
+  // Autenticar
+  const autenticarUsuario = (peticion, respuesta, siguiente) => {
+    const token = peticion.header("Authorization");
+    if (!token) {
+      return respuesta.status(401).json({ Error: "Acceso no autorizado" });
+    }
+    try {
+      const decoded = jwt.verify(token, "secreto"); // Asegúrate de que "secreto" coincida con la clave usada para firmar el token
+      peticion.user = decoded;
+      siguiente();
+    } catch (error) {
+      return respuesta.status(401).json({ Error: "Acceso no autorizado" });
+    }
+  };
+
+  app.get("/UsuarioActual", autenticarUsuario, (peticion, respuesta) => {
+    const { email } = peticion.user;
+    const query = "SELECT * FROM usuarios WHERE email = ?";
+    connection.query(query, [email], (error, resultados) => {
+      if (error) {
+        return respuesta.status(500).json({ Error: "Error en la consulta" });
+      } else {
+        if (resultados.length > 0) {
+          const usuario = resultados[0];
+          return respuesta.json({ Estatus: "CORRECTO", Resultado: usuario });
+        } else {
+          return respuesta.status(404).json({ Error: "Usuario no encontrado" });
+        }
+      }
+    });
+  });
 
 // Iniciar server
 const PORT = 8081;

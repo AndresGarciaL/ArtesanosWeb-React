@@ -1,21 +1,36 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from "react";
+import axios from "axios";
 
-const UserContext = createContext();
+export const UserContext = createContext();
+export const UserProvider = ({ children }) => {
+  const [usuario, setUsuario] = useState(() => {
+    const usuarioAlmacenado = localStorage.getItem("usuario");
+    return usuarioAlmacenado ? JSON.parse(usuarioAlmacenado) : null;
+  });
 
-export function useUserContext() {
-  return useContext(UserContext);
-}
+  useEffect(() => {
+    localStorage.setItem("usuario", JSON.stringify(usuario));
+  }, [usuario]);
 
-export function UserContextProvider({ children }) {
-  const [rol_id, setRolId] = useState(null);
-
-  const updateUserRole = (newRole) => {
-    setRolId(newRole);
+  const obtenerUsuarioActual = async () => {
+    try {
+      const response = await axios.get("http://localhost:8081/UsuarioActual", {
+        headers: {
+          Authorization: localStorage.getItem("token")
+        }
+      });
+      if (response.data.Estatus === "CORRECTO") {
+        setUsuario(response.data.Resultado);
+      }
+    } catch (error) {
+      console.log("Se produjo un error al obtener la información del usuario actual: ", error);
+    }
   };
 
   return (
-    <UserContext.Provider value={{ rol_id, updateUserRole }}>
+    <UserContext.Provider value={{ usuario, setUsuario, obtenerUsuarioActual }}>
       {children}
     </UserContext.Provider>
   );
-}
+};
+  
