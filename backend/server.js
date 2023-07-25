@@ -6,6 +6,8 @@ import jwt from 'jsonwebtoken';
 import morgan from 'morgan';
 import jwt_decode from 'jwt-decode';
 
+import paypal from "paypal-rest-sdk";
+
 const app = express();
 app.use(express.json());
 app.use(cors());
@@ -276,7 +278,7 @@ app.put('/editusuario/:id', (req, res) => {
 
 // Register
 app.post('/registrar', (req, res) => {
-  const { nombre,apellidos, email, contrasena } = req.body;
+  const { nombre, apellidos, email, contrasena } = req.body;
 
   // Generar el hash de la contraseña
   bcrypt.hash(contrasena, 10, (error, hash) => {
@@ -285,7 +287,7 @@ app.post('/registrar', (req, res) => {
       res.status(500).json({ Estatus: 'ERROR', Error: 'Error al registrar usuario' });
     } else {
       const sql = 'INSERT INTO usuarios (nombre,apellidos, email, contrasena,rol_id, estatus) VALUES (?,?,?,?,2,1)';
-      connection.query(sql, [nombre,apellidos, email, hash], (error, resultado) => {
+      connection.query(sql, [nombre, apellidos, email, hash], (error, resultado) => {
         if (error) {
           console.log('Error al registrar usuario', error);
           res.status(500).json({ Estatus: 'ERROR', Error: 'Error al registrar usuario' });
@@ -297,71 +299,134 @@ app.post('/registrar', (req, res) => {
   });
 });
 
-  //* LOGIN
-  app.post("/login", (peticion, respuesta) => {
-    const { email, contrasena } = peticion.body;
-    const query = "SELECT contrasena FROM usuarios WHERE email = ?";
-    connection.query(query, [email], (error, resultados) => {
-      if (error) return respuesta.json({ Error: "Error en la consulta." });
-      if (resultados.length === 0) return respuesta.json({ Error: "Error en la consulta" });
-      const usuario = resultados[0];
-      const match = bcrypt.compareSync(contrasena, usuario.contrasena);
-      if (match) {
-        const token = jwt.sign({ email: email }, "secreto"); // Corrige el campo aquí
-        return respuesta.json({ Estatus: "CORRECTO", Resultado: usuario, token });
-      } else {
-        return respuesta.json({ Error: "Error en las credenciales del usuario" });
-      }
-    });
-  });
-  
-  app.post("/VerificarCorreo", (peticion, respuesta) => {
-    const { email } = peticion.body;
-    const query = "SELECT * FROM usuarios WHERE email = ?";
-    connection.query(query, [email], (error, resultados) => {
-      if (error) {
-        return respuesta.json({ Error: "Error en la consulta" });
-      } else {
-        if (resultados.length > 0) {
-          return respuesta.json({ Estatus: "Correcto", Resultado: resultados });
-        } else {
-          return respuesta.json({ Error: "El usuario no existe" });
-        }
-      }
-    });
-  });
-  
-  // Autenticar
-  const autenticarUsuario = (peticion, respuesta, siguiente) => {
-    const token = peticion.header("Authorization");
-    if (!token) {
-      return respuesta.status(401).json({ Error: "Acceso no autorizado" });
+//* LOGIN
+app.post("/login", (peticion, respuesta) => {
+  const { email, contrasena } = peticion.body;
+  const query = "SELECT contrasena FROM usuarios WHERE email = ?";
+  connection.query(query, [email], (error, resultados) => {
+    if (error) return respuesta.json({ Error: "Error en la consulta." });
+    if (resultados.length === 0) return respuesta.json({ Error: "Error en la consulta" });
+    const usuario = resultados[0];
+    const match = bcrypt.compareSync(contrasena, usuario.contrasena);
+    if (match) {
+      const token = jwt.sign({ email: email }, "secreto"); // Corrige el campo aquí
+      return respuesta.json({ Estatus: "CORRECTO", Resultado: usuario, token });
+    } else {
+      return respuesta.json({ Error: "Error en las credenciales del usuario" });
     }
-    try {
-      const decoded = jwt.verify(token, "secreto"); // Asegúrate de que "secreto" coincida con la clave usada para firmar el token
-      peticion.user = decoded;
-      siguiente();
-    } catch (error) {
-      return respuesta.status(401).json({ Error: "Acceso no autorizado" });
+  });
+});
+
+app.post("/VerificarCorreo", (peticion, respuesta) => {
+  const { email } = peticion.body;
+  const query = "SELECT * FROM usuarios WHERE email = ?";
+  connection.query(query, [email], (error, resultados) => {
+    if (error) {
+      return respuesta.json({ Error: "Error en la consulta" });
+    } else {
+      if (resultados.length > 0) {
+        return respuesta.json({ Estatus: "Correcto", Resultado: resultados });
+      } else {
+        return respuesta.json({ Error: "El usuario no existe" });
+      }
     }
+  });
+});
+
+// Autenticar
+const autenticarUsuario = (peticion, respuesta, siguiente) => {
+  const token = peticion.header("Authorization");
+  if (!token) {
+    return respuesta.status(401).json({ Error: "Acceso no autorizado" });
+  }
+  try {
+    const decoded = jwt.verify(token, "secreto"); // Asegúrate de que "secreto" coincida con la clave usada para firmar el token
+    peticion.user = decoded;
+    siguiente();
+  } catch (error) {
+    return respuesta.status(401).json({ Error: "Acceso no autorizado" });
+  }
+};
+
+app.get("/UsuarioActual", autenticarUsuario, (peticion, respuesta) => {
+  const { email } = peticion.user;
+  const query = "SELECT * FROM usuarios WHERE email = ?";
+  connection.query(query, [email], (error, resultados) => {
+    if (error) {
+      return respuesta.status(500).json({ Error: "Error en la consulta" });
+    } else {
+      if (resultados.length > 0) {
+        const usuario = resultados[0];
+        return respuesta.json({ Estatus: "CORRECTO", Resultado: usuario });
+      } else {
+        return respuesta.status(404).json({ Error: "Usuario no encontrado" });
+      }
+    }
+  });
+});
+
+// Configurar las credenciales de PayPal
+paypal.configure({
+  mode: "sandbox", // Cambiar a "live" para producción
+  client_id: "Ac5vc603mTdL1qm9t0wOvR86fSz3gX42Jy5BxSZ9-IfrFZDCEzC3FHwb6GQX2dB598WIPQN93aZ-9tvS",
+  client_secret: "EPA419lhtqO3kQGLsp7MFT1ruKM9XJa7JDtFHlhbnJWehEjJ-ImIcWLevL4O35ClO1R7IeGVlENEkLdu",
+});
+
+// Ruta para generar el pago y obtener la URL de redireccionamiento de PayPal
+app.post("/crearPago", (req, res) => {
+  const { total } = req.body;
+
+  const create_payment_json = {
+    intent: "sale",
+    payer: {
+      payment_method: "paypal",
+    },
+    redirect_urls: {
+      return_url: "http://localhost:3000/Carrito", // Ruta de redireccionamiento después de pago exitoso
+      cancel_url: "http://localhost:3000/Carrito", // Ruta de redireccionamiento después de cancelar pago
+    },
+    transactions: [
+      {
+        amount: {
+          total: total,
+          currency: "MXN", // Cambiar según la moneda que utilices
+        },
+      },
+    ],
   };
 
-  app.get("/UsuarioActual", autenticarUsuario, (peticion, respuesta) => {
-    const { email } = peticion.user;
-    const query = "SELECT * FROM usuarios WHERE email = ?";
-    connection.query(query, [email], (error, resultados) => {
-      if (error) {
-        return respuesta.status(500).json({ Error: "Error en la consulta" });
-      } else {
-        if (resultados.length > 0) {
-          const usuario = resultados[0];
-          return respuesta.json({ Estatus: "CORRECTO", Resultado: usuario });
-        } else {
-          return respuesta.status(404).json({ Error: "Usuario no encontrado" });
-        }
-      }
-    });
+  paypal.payment.create(create_payment_json, function (error, payment) {
+    if (error) {
+      console.error("Error al crear el pago de PayPal:", error);
+      res.status(500).json({ error: "Error al crear el pago de PayPal" });
+    } else {
+      const approval_url = payment.links.find(
+        (link) => link.rel === "approval_url"
+      ).href;
+      res.json({ url: approval_url });
+    }
   });
+});
+
+// Ruta para verificar el estado del pago después de regresar de PayPal
+app.get("/verificarPago", (req, res) => {
+  const payerId = req.query.PayerID;
+  const paymentId = req.query.paymentId;
+
+  const execute_payment_json = {
+    payer_id: payerId,
+  };
+
+  paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
+    if (error) {
+      console.error("Error al verificar el estado del pago:", error);
+      res.status(500).json({ error: "Error al verificar el estado del pago" });
+    } else {
+      const status = payment.state;
+      res.json({ status });
+    }
+  });
+});
 
 // Iniciar server
 const PORT = 8081;

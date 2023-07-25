@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -7,6 +7,10 @@ import { CarritoContext } from "./CarritoContext";
 import "../styles/Carrito.css";
 import Producto from "../components/Producto";
 import Compra from "./Compra";
+
+import Swal from "sweetalert2";
+import axios from "axios";
+import withReactContent from "sweetalert2-react-content";
 
 function Carrito() {
   const { productos, agregarAlCarrito } = useContext(CarritoContext);
@@ -26,6 +30,52 @@ function Carrito() {
     });
     return total.toFixed(2);
   };
+
+  //Paypal
+  const [paymentUrl, setPaymentUrl] = useState("");
+  const generarPago = async () => {
+    try {
+      const { data } = await axios.post("http://localhost:8081/crearPago", {
+        total: calcularPrecioTotal(),
+      });
+      setPaymentUrl(data.url);
+    } catch (error) {
+      console.error("Error al generar el pago:", error);
+      // Mostrar alguna alerta o mensaje de error si es necesario
+    }
+  };
+
+  useEffect(() => {
+    if (paymentUrl) {
+      // Redireccionar a la página de PayPal
+      window.location.href = paymentUrl;
+    }
+  }, [paymentUrl]);
+
+  // Verificar estado del pago después de regresar de PayPal
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentStatus = urlParams.get("status");
+
+    if (paymentStatus) {
+      const MySwal = withReactContent(Swal);
+
+      if (paymentStatus === "success") {
+        MySwal.fire({
+          icon: "success",
+          title: "Pago exitoso",
+          text: "Gracias por tu compra",
+        });
+      } else if (paymentStatus === "cancel") {
+        MySwal.fire({
+          icon: "error",
+          title: "Pago cancelado",
+          text: "El pago ha sido cancelado",
+        });
+      }
+    }
+  }, [paymentUrl]);
+
 
   return (
     <>
@@ -50,10 +100,9 @@ function Carrito() {
               <span className="item-title-total">Total: </span>
               <span className="item-title-total">${calcularPrecioTotal()}</span>
             </div>
-            <Link to="/Compra">
-              <button className="button-compra">Continuar compra</button>
-              <Compra/>
-            </Link>
+            <button className="button-compra" onClick={generarPago}>
+              Continuar compra
+            </button>
           </div>
         </div>
 
